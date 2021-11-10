@@ -72,3 +72,26 @@ this.run("My Test", settings -> {
     }
 });
 ```
+
+#### Use collapsible Sections
+A section is a collapsible part of your test, you can use it to structure your report.
+
+```
+report.startSection("Header");
+// check header
+report.pass("Header Section ok"); // PASS or FAIL ends the section
+
+report.startSection("Body");
+// check Body
+report.pass("Body Section ok");
+```
+
+#### Work with restmail.net
+Sometimes your application sends emails and you might want to test whether they are sent correctly. You can use https://restmail.net for that and then retrieve the mails from your test. Look at the javadocs for
+- checkRestMail
+- clickLinkInRestMail
+- deleteRestMail
+
+#### Standard Macros
+The class StandardMacros provides all helper functions to work with Selenide and you can access them all from your class extending UITest.
+
