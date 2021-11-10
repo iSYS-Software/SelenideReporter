@@ -41,6 +41,7 @@ Further System Properties:
 - `UITEST.BROWSER`: browser to use for UI tests, default is `chrome`
 
 ## Step by Step
+There's a lot going on in the HelloWorld test and this section explains it in more detail.
 1. Your test class should extend `UITest` or a base class you write that extends `UITest`.
 2. Annotate the class with your fallback base URL, unless http://localhost:8080 is to your liking.
 3. JUnit is used as a test runner, so use JUnit annotations to drive your test.
@@ -53,3 +54,21 @@ Further System Properties:
     - report.warning("some warning");
     - report.fail("error description");
     - report.pass("success message - your test method has completed successfully");
+
+## Advanced Usage
+There's a more involved example included [here](src/test/java/tests/ExampleTest.java).
+
+#### Clean up after the Test
+When one of your Selenide asserts fails, the test will stop immediately. If you want to run some cleanup code after the test completes (whether successfully or not), you can do it like so:
+
+```
+this.run("My Test", settings -> {
+    // some error might occur here
+    report.pass("All good");
+}, result -> {
+    // This is called in any case after the test has finished
+    if (result.getThrowable() != null) {
+        // something was thrown
+    }
+});
+```
