@@ -26,7 +26,7 @@ public class HelloWorldTest extends UITest {
             $(".mw-wiki-logo").should(appear);
             report.info("Wikipedia Logo found");
             // ... more tests
-            report.pass("All good", false);
+            report.pass("All good with " + BASE_URL, false);
         });
     }
 
