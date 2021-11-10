@@ -27,13 +27,28 @@ import org.openqa.selenium.By;
 public abstract class UITest {
 
     private static final String REPORTDIR = "REPORT.UITEST.DIR";
-    static final String BROWSER = "UITEST.BROWSER";
+    private static final String BROWSER = "UITEST.BROWSER";
     private static final String BASEURL = "BASE.URL";
 
     private static ExtentReports reports;
     private final StandardMacros stdMacros = new StandardMacros();
 
     protected UITestReport report = null;
+    protected final String BASE_URL;
+
+    public UITest() {
+        String baseUrl = System.getProperty(BASEURL);
+        if (baseUrl == null) {
+            // not configured, so let's check annotation
+            baseUrl = getBaseUrlAnnotation();
+            if (baseUrl == null) {
+                // not annotated either, set default
+                baseUrl = "http://localhost:8080";
+            }
+        }
+        this.BASE_URL = baseUrl;
+        System.out.println("BASE_URL: " + BASE_URL);
+    }
 
     @BeforeClass
     public static void setUpClass() throws IOException {
@@ -69,17 +84,6 @@ public abstract class UITest {
 
     @Before
     public void setUp() {
-        String baseUrl = System.getProperty(BASEURL);
-        if (baseUrl == null) {
-            // not configured, so let's check annotation
-            baseUrl = getBaseUrlAnnotation();
-            if (baseUrl == null) {
-                // not annotated either, set default
-                baseUrl = "http://localhost:8080";
-            }
-            System.setProperty(BASEURL, baseUrl);
-        }
-        System.out.println("BASE.URL: " + System.getProperty(BASEURL));
     }
 
     @After
@@ -108,7 +112,7 @@ public abstract class UITest {
         }
         ExtentTest extentTest = reports.createTest(testName, testDescription);
         this.report = new UITestReport(System.getProperty(REPORTDIR), extentTest);
-        UITestSettings settings = new UITestSettings(System.getProperty(BASEURL));
+        UITestSettings settings = new UITestSettings(BROWSER);
         UITestResult result = new UITestResult(settings);
         try {
             callback.execute(settings);

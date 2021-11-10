@@ -50,7 +50,7 @@ public class UITestReport {
     }
 
     public void info(String msg, boolean captureScreen) {
-        writeToReport(Status.INFO, msg, captureScreen);
+        writeToReport(Status.INFO, msg, null, captureScreen);
     }
 
     public void warning(String msg) {
@@ -58,7 +58,7 @@ public class UITestReport {
     }
 
     public void warning(String msg, boolean captureScreen) {
-        writeToReport(Status.WARNING, msg, captureScreen);
+        writeToReport(Status.WARNING, msg, null, captureScreen);
     }
 
     public void skip(String msg) {
@@ -66,7 +66,7 @@ public class UITestReport {
     }
 
     public void skip(String msg, boolean captureScreen) {
-        writeToReport(Status.SKIP, msg, captureScreen);
+        writeToReport(Status.SKIP, msg, null, captureScreen);
     }
 
     public void pass() {
@@ -78,18 +78,14 @@ public class UITestReport {
     }
 
     public void pass(String msg, boolean captureScreen) {
-        writeToReport(Status.PASS, msg, captureScreen);
+        writeToReport(Status.PASS, msg, null, captureScreen);
     }
 
     public void fail(String msg) {
-        fail(msg, true);
-    }
-
-    public void fail(String msg, boolean stopTest) {
         failWithMessage(msg == null ? "" : msg, null);
     }
 
-    private void writeToReport(Status status, String msg, boolean captureScreen) {
+    private void writeToReport(Status status, String msg, Throwable t, boolean captureScreen) {
         if (captureScreen) {
             try {
                 TakesScreenshot screenshot = (TakesScreenshot) getWebDriver(); // can throw NPE
@@ -97,7 +93,7 @@ public class UITestReport {
                 File destFile = createNonExistingFileForScreenshot();
                 FileUtils.copyFile(sourceFile, destFile);
                 Media media = MediaEntityBuilder.createScreenCaptureFromPath(destFile.getName()).build();
-                log(status, msg, media);
+                log(status, msg, t, media);
             }
             catch (Exception e) {
                 msg = "Could not take Screenshot: " + e.getMessage();
@@ -116,7 +112,7 @@ public class UITestReport {
 
     private void failWithMessage(String msg, Throwable t) {
         String errorMsg = t == null ? msg : msg + " caused by " + t.toString();
-        writeToReport(Status.FAIL, errorMsg, true);
+        writeToReport(Status.FAIL, errorMsg, t, true);
         org.junit.Assert.fail();
     }
 

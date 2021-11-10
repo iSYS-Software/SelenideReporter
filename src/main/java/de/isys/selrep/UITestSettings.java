@@ -1,22 +1,18 @@
 package de.isys.selrep;
 
 import com.codeborne.selenide.Configuration;
-import static de.isys.selrep.UITest.BROWSER;
 
 public class UITestSettings {
 
-    private final String baseUrl;
+    private final String BROWSER_PROP;
 
-    public UITestSettings(String baseUrl) {
-        this.baseUrl = baseUrl;
+    public UITestSettings(String browserProperty) {
+        this.BROWSER_PROP = browserProperty;
         restoreDefaultTimeout();
+        restoreDefaultBrowser();
         restoreDefaultBrowserSize();
         Configuration.headless = true;
         Configuration.savePageSource = false;
-    }
-
-    public String getBaseUrl() {
-        return this.baseUrl;
     }
 
     public long getTimeout() {
@@ -52,7 +48,7 @@ public class UITestSettings {
     }
 
     public final void restoreDefaultBrowser() {
-        Configuration.browser = System.getProperty(BROWSER);
+        Configuration.browser = System.getProperty(BROWSER_PROP);
     }
 
     public boolean getHeadless() {

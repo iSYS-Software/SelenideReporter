@@ -21,7 +21,6 @@ public class ExampleTest extends UITest {
     @Test
     public void homepage() {
         this.run("Homepage", "check if homepage contains all expected elements", settings -> {
-            String BASE_URL = settings.getBaseUrl();
             open(BASE_URL);
 
             SelenideElement acceptCookiesButton = $("#CookieBoxSaveButton").should(appear);
