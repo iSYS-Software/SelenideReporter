@@ -1,0 +1,49 @@
+.gradle
+gradle.properties
+*.DS_Store
+build/
+node_modules/
+.cache/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+nbproject
+nbbuild
+dist
+nbdist
+.nb-gradle
+.nb-gradle-properties
+
+### VS Code ###
+.vscode/
+
+### Vaadin ###
+node
+target
+package.json
+package-lock.json
+webpack.config.js
+webpack.generated.js
+
+### Credentials ###
+creds.properties
+
+###############
