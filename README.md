@@ -10,6 +10,7 @@ Therefore this framework aims to add the following features to Selenide:
 - opinionated reporting: a way to structure your tests.
 - custom reporting: you decide what should be in the report.
 - modern visuals (as provided by [Extent Reports](https://github.com/extent-framework/extentreports-java)).
+- self-contained reports (so you can easily publish them on a CI server).
 
 ## Installation
 TODO
