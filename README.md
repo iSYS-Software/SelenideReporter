@@ -32,7 +32,8 @@ public class HelloWorldTest extends UITest {
 }
 ```
 
-Run this test via `gradlew -x check clean test --tests tests.HelloWorldTest` and a report very similar to **[this one](sample-reports/helloWorld/index.html)** will be produced in the `build/reports/selenide` directory. If you want to generate a report for all tests in the project, simply run `gradlew clean test`.
+Run this test via `gradlew -x check clean test --tests tests.HelloWorldTest` and a report will be produced in the `build/reports/selenide` directory. If you want to generate a report for all tests in the project, simply run `gradlew clean test`. Here is a **[screenshot](samples/screenshot.png)** of what the report will look like.
+
 
 ## Configuration
 The reports are configured via System Properties, which comes in handy when running on a CI server, where configuration must be provided externally. For local development you can rely on "convention over configuration" and only provide fallbacks, where the defaults aren't reasonable. There is only one fallback implemented currently and it is the URL, where the application to test is running. Use the System Property `BASE.URL` to configure it externally and the annotation `@Fallbacks` as a fallback where the System Property is undefined (such as local development).
