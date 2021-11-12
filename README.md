@@ -40,6 +40,7 @@ The reports are configured via System Properties, which comes in handy when runn
 Further System Properties:
 - `REPORT.UITEST.DIR`: directory where the reports are written, default is `build/reports/selenide`
 - `UITEST.BROWSER`: browser to use for UI tests, default is `chrome`
+- `org.slf4j.simpleLogger.defaultLogLevel`: log level for Selenide, default is `info`
 
 ## Step by Step
 There's a lot going on in the HelloWorld test and this section explains it in more detail.

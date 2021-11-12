@@ -82,13 +82,17 @@ public class UITestReport {
     }
 
     public void fail(String msg) {
-        failWithMessage(msg == null ? "" : msg, null);
+        fail(msg, null);
+    }
+
+    public void fail(String msg, Throwable t) {
+        failWithMessage(msg == null ? "" : msg, t);
     }
 
     private void writeToReport(Status status, String msg, Throwable t, boolean captureScreen) {
         if (captureScreen) {
             try {
-                TakesScreenshot screenshot = (TakesScreenshot) getWebDriver(); // can throw NPE
+                TakesScreenshot screenshot = (TakesScreenshot)getWebDriver(); // can throw NPE, NSME, ...
                 File sourceFile = screenshot.getScreenshotAs(OutputType.FILE);
                 File destFile = createNonExistingFileForScreenshot();
                 FileUtils.copyFile(sourceFile, destFile);
@@ -96,8 +100,8 @@ public class UITestReport {
                 log(status, msg, t, media);
             }
             catch (Exception e) {
-                msg = "Could not take Screenshot: " + e.getMessage();
-                log(Status.WARNING, msg);
+                log(Status.WARNING, "Could not take Screenshot: " + e.toString());
+                log(status, msg, t);
             }
         }
         else {
@@ -118,6 +122,10 @@ public class UITestReport {
 
     private void log(Status status, String msg) {
         log(status, msg, null, null);
+    }
+
+    private void log(Status status, String msg, Throwable t) {
+        log(status, msg, t, null);
     }
 
     private void log(Status status, String msg, Media media) {

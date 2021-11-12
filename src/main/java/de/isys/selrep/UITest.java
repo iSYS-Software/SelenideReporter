@@ -16,13 +16,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.slf4j.impl.SimpleLogger;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import org.openqa.selenium.By;
 
 public abstract class UITest {
 
@@ -52,6 +53,9 @@ public abstract class UITest {
 
     @BeforeClass
     public static void setUpClass() throws IOException {
+        if (System.getProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY) == null) {
+            System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "info");
+        }
         if (System.getProperty(REPORTDIR) == null) {
             System.setProperty(REPORTDIR, "build/reports/selenide");
         }
@@ -123,8 +127,13 @@ public abstract class UITest {
         }
         finally {
             if (onFinalize != null) {
-                report.startSection("Finalizer");
-                onFinalize.execute(result);
+                try {
+                    report.startSection("Finalizer");
+                    onFinalize.execute(result);
+                }
+                catch (Throwable t) {
+                    report.failOnException(t);
+                }
             }
         }
     }
@@ -168,14 +177,36 @@ public abstract class UITest {
         stdMacros.resizeBrowserWindow(width, height);
     }
 
-    protected SelenideElement getShadowRootFor(SelenideElement host) {
+    /**
+     * @param host an element
+     * @return the ShadowRoot DOM node for the supplied element
+     * @throws UITestException if the supplied element has no ShadowRoot
+     */
+    protected SelenideElement getShadowRootFor(SelenideElement host) throws UITestException {
         return stdMacros.getShadowRootFor(host);
     }
 
+    /**
+     * Note: not all By selectors will work in every browser, but By.id and By.cssSelector should be safe.
+     * 
+     * @param host an element with a ShadowRoot DOM node
+     * @param innerElement selector
+     * @return the element selected by selector from within the ShadowRoot DOM node of host
+     */
     protected SelenideElement getElementInShadowRootOf(SelenideElement host, By innerElement) {
         return stdMacros.getElementInShadowRootOf(host, innerElement);
     }
 
+    /**
+     * Traverses a ShadowRoot hierarchy according to the supplied selectors, where each selector will
+     * select the next ShadowRoot DOM node.
+     * 
+     * Note: not all By selectors will work in every browser, but By.id and By.cssSelector should be safe.
+     * 
+     * @param host an element with a ShadowRoot DOM node
+     * @param nestedSelectors selectors
+     * @return the element selected by the last selector
+     */
     protected SelenideElement getNestedShadowRoot(SelenideElement host, By... nestedSelectors) {
         return stdMacros.getNestedShadowRoot(host, nestedSelectors);
     }
