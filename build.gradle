@@ -51,6 +51,14 @@ publishing {
                 header(HttpHeaderAuthentication)
             }
         }
+        maven {
+            name "nexus"
+            url "https://nexus.isys.de/repository/maven-releases/"
+            credentials {
+                username project.nexusUser
+                password project.nexusPassword
+            }
+        }
     }
 
 }
