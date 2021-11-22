@@ -51,6 +51,7 @@ public abstract class UITest {
         System.out.println("BASE_URL: " + BASE_URL);
     }
 
+    // +++ System.setProperty("chromeoptions.args", "--lang=de");
     @BeforeClass
     public static void setUpClass() throws IOException {
         if (System.getProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY) == null) {
@@ -105,7 +106,7 @@ public abstract class UITest {
 
     protected void run(String testName, String testDescription, UITestCallback callback) {
         run(testName, testDescription, callback, null);
-    };
+    }
 
     protected void run(String testName, 
                        String testDescription, 

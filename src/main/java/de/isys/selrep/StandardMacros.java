@@ -10,12 +10,15 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -55,9 +58,32 @@ public class StandardMacros {
     SelenideElement getShadowRootFor(SelenideElement host) {
         WebDriver webDriver = getWebDriver();
         JavascriptExecutor jse = (JavascriptExecutor) webDriver;
-        WebElement shadowRoot = (WebElement) jse.executeScript("return arguments[0].shadowRoot", host);
+        Object shadowRoot = jse.executeScript("return arguments[0].shadowRoot", host);
         if (shadowRoot == null) throw new UITestException("No Shadow Root for " + host);
-        return $(shadowRoot);
+        return $(getWebElement(shadowRoot, webDriver));
+    }
+
+    public WebElement getWebElement(Object shadowRoot, WebDriver webDriver) {
+        WebElement returnObj = null;
+        if (shadowRoot instanceof WebElement) {
+            // ChromeDriver 95
+            returnObj = (WebElement) shadowRoot;
+        }
+        else if (shadowRoot instanceof Map)  {
+            // ChromeDriver 96+
+            // Based on https://github.com/SeleniumHQ/selenium/issues/10050#issuecomment-974231601
+            Map<String, Object> shadowRootMap = (Map<String, Object>) shadowRoot;
+            String shadowRootKey = (String) shadowRootMap.keySet().toArray()[0];
+            String id = (String) shadowRootMap.get(shadowRootKey);
+            RemoteWebElement remoteWebElement = new RemoteWebElement();
+            remoteWebElement.setParent((RemoteWebDriver) webDriver);
+            remoteWebElement.setId(id);
+            returnObj = remoteWebElement;
+        }
+        else {
+            throw new UITestException("Unexpected return type for shadowRoot: " + shadowRoot.getClass().getName());
+        }
+        return returnObj;
     }
 
     SelenideElement getElementInShadowRootOf(SelenideElement host, By innerElement) {
