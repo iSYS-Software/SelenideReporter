@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -55,48 +56,39 @@ public class StandardMacros {
         getWebDriver().manage().window().setSize(d);
     }
 
-    SelenideElement getShadowRootFor(SelenideElement host) {
+    SelenideElement getElementInShadowRootOf(SelenideElement host, By innerElement) {
         WebDriver webDriver = getWebDriver();
         JavascriptExecutor jse = (JavascriptExecutor) webDriver;
         Object shadowRoot = jse.executeScript("return arguments[0].shadowRoot", host);
         if (shadowRoot == null) throw new UITestException("No Shadow Root for " + host);
-        return $(getWebElement(shadowRoot, webDriver));
-    }
-
-    public WebElement getWebElement(Object shadowRoot, WebDriver webDriver) {
-        WebElement returnObj = null;
         if (shadowRoot instanceof WebElement) {
-            // ChromeDriver 95
-            returnObj = (WebElement) shadowRoot;
+            // ChromeDriver 95 and Selenium 4
+            return $(((WebElement) shadowRoot).findElement(innerElement));
+        }
+        else if (shadowRoot instanceof SearchContext) {
+            // ChromeDriver 96+ and Selenium 4
+            return $(((SearchContext) shadowRoot).findElement(innerElement));
         }
         else if (shadowRoot instanceof Map)  {
-            // ChromeDriver 96+
+            // ChromeDriver 96+ and Selenium 3.141.59
             // Based on https://github.com/SeleniumHQ/selenium/issues/10050#issuecomment-974231601
             Map<String, Object> shadowRootMap = (Map<String, Object>) shadowRoot;
             String shadowRootKey = (String) shadowRootMap.keySet().toArray()[0];
-            String id = (String) shadowRootMap.get(shadowRootKey);
             RemoteWebElement remoteWebElement = new RemoteWebElement();
             remoteWebElement.setParent((RemoteWebDriver) webDriver);
-            remoteWebElement.setId(id);
-            returnObj = remoteWebElement;
+            remoteWebElement.setId(shadowRootKey);
+            return $(remoteWebElement.findElement(innerElement));
         }
         else {
             throw new UITestException("Unexpected return type for shadowRoot: " + shadowRoot.getClass().getName());
         }
-        return returnObj;
     }
 
-    SelenideElement getElementInShadowRootOf(SelenideElement host, By innerElement) {
-        return getShadowRootFor(host).$(innerElement);
-    }
-
-    SelenideElement getNestedShadowRoot(SelenideElement host, By... nestedSelectors) {
-        SelenideElement shadowRoot = getShadowRootFor(host);
+    SelenideElement getElementInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
         for (By selector : nestedSelectors) {
-            SelenideElement innerElem = shadowRoot.$(selector);
-            shadowRoot = getShadowRootFor(innerElem);
+            host = getElementInShadowRootOf(host, selector);
         }
-        return shadowRoot;
+        return host;
     }
 
     String checkRestMail(String mailUser, String searchPhrase) {

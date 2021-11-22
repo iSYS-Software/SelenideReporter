@@ -52,6 +52,7 @@ public abstract class UITest {
     }
 
     // +++ System.setProperty("chromeoptions.args", "--lang=de");
+    // +++ old reports lose textual description
     @BeforeClass
     public static void setUpClass() throws IOException {
         if (System.getProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY) == null) {
@@ -179,15 +180,6 @@ public abstract class UITest {
     }
 
     /**
-     * @param host an element
-     * @return the ShadowRoot DOM node for the supplied element
-     * @throws UITestException if the supplied element has no ShadowRoot
-     */
-    protected SelenideElement getShadowRootFor(SelenideElement host) throws UITestException {
-        return stdMacros.getShadowRootFor(host);
-    }
-
-    /**
      * Note: not all By selectors will work in every browser, but By.id and By.cssSelector should be safe.
      * 
      * @param host an element with a ShadowRoot DOM node
@@ -208,8 +200,8 @@ public abstract class UITest {
      * @param nestedSelectors selectors
      * @return the element selected by the last selector
      */
-    protected SelenideElement getNestedShadowRoot(SelenideElement host, By... nestedSelectors) {
-        return stdMacros.getNestedShadowRoot(host, nestedSelectors);
+    protected SelenideElement getElementInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
+        return stdMacros.getElementInNestedShadowRootOf(host, nestedSelectors);
     }
 
     /**

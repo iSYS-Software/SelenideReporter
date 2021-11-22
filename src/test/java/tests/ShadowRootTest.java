@@ -6,6 +6,7 @@ import de.isys.selrep.Fallbacks;
 import de.isys.selrep.UITest;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -20,9 +21,8 @@ public class ShadowRootTest extends UITest {
             $("footer button").click();
             $$(".shepherd-header .shepherd-cancel-icon").filterBy(visible).first().click();
             report.info("App Start Screen");
-            SelenideElement shadowRoot = getShadowRootFor($("#app-preview"));
-            report.info(shadowRoot.innerText(), false);
-            shadowRoot.$("#previewLumo").shouldBe(visible);
+            SelenideElement inner = getElementInShadowRootOf($("#app-preview"), By.cssSelector("#previewLumo"));
+            inner.shouldBe(visible);
         });
     }
 
