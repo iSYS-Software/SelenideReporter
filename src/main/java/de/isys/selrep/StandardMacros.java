@@ -59,7 +59,13 @@ public class StandardMacros {
     SelenideElement getElementInShadowRootOf(SelenideElement host, By innerElement) {
         WebDriver webDriver = getWebDriver();
         JavascriptExecutor jse = (JavascriptExecutor) webDriver;
-        Object shadowRoot = jse.executeScript("return arguments[0].shadowRoot", host);
+        Object shadowRoot = null;
+        try {
+            shadowRoot = jse.executeScript("return arguments[0].shadowRoot", host);
+        }
+        catch (Throwable t) {
+            throw new UITestException("Host: " + host + ", By: " + innerElement, t);
+        }
         if (shadowRoot == null) throw new UITestException("No Shadow Root for " + host);
         if (shadowRoot instanceof WebElement) {
             // ChromeDriver 95 and Selenium 4
