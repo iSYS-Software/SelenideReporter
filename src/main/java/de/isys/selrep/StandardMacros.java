@@ -1,5 +1,6 @@
 package de.isys.selrep;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
@@ -21,6 +22,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
+import lombok.Data;
+
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -28,7 +31,7 @@ import static com.codeborne.selenide.WebDriverRunner.source;
 
 public class StandardMacros { 
 
-    // +++ Upload, executeJavaScript, Vaadin
+    // +++ Upload, executeJavaScript
 
     void selectRandomOption(SelenideElement select, int offset) {
         int optionCount = select.findAll(byTagName("option")).size() - offset;
@@ -57,6 +60,36 @@ public class StandardMacros {
     }
 
     SelenideElement getElementInShadowRootOf(SelenideElement host, By innerElement) {
+        return enterShadowRoot(host, innerElement, true).getResultElement();
+    }
+
+    ElementsCollection getElementsInShadowRootOf(SelenideElement host, By innerElement) {
+        return enterShadowRoot(host, innerElement, false).getResultElements();
+    }
+
+    SelenideElement getElementInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
+        for (By selector : nestedSelectors) {
+            host = getElementInShadowRootOf(host, selector);
+        }
+        return host;
+    }
+
+    ElementsCollection getElementsInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
+        if (nestedSelectors.length < 2) throw new IllegalArgumentException("At least two Selectors needed!");
+        for (int i = 0; i < nestedSelectors.length - 1; i++) {
+            host = getElementInShadowRootOf(host, nestedSelectors[i]);
+        }
+        return getElementsInShadowRootOf(host, nestedSelectors[nestedSelectors.length - 1]);
+    }
+
+    @Data
+    private class ShadowRootResult {
+        private SelenideElement resultElement;
+        private ElementsCollection resultElements;
+    }
+
+    private ShadowRootResult enterShadowRoot(SelenideElement host, By innerElement, boolean firstResultOnly) {
+        ShadowRootResult result = new ShadowRootResult();
         WebDriver webDriver = getWebDriver();
         JavascriptExecutor jse = (JavascriptExecutor) webDriver;
         Object shadowRoot = null;
@@ -69,11 +102,13 @@ public class StandardMacros {
         if (shadowRoot == null) throw new UITestException("No Shadow Root for " + host);
         if (shadowRoot instanceof WebElement) {
             // ChromeDriver 95 and Selenium 4
-            return $(((WebElement) shadowRoot).findElement(innerElement));
+            if (firstResultOnly) result.setResultElement($(((WebElement) shadowRoot).findElement(innerElement)));
+            else result.setResultElements($$(((WebElement) shadowRoot).findElements(innerElement)));
         }
         else if (shadowRoot instanceof SearchContext) {
             // ChromeDriver 96+ and Selenium 4
-            return $(((SearchContext) shadowRoot).findElement(innerElement));
+            if (firstResultOnly) result.setResultElement($(((SearchContext) shadowRoot).findElement(innerElement)));
+            else result.setResultElements($$(((SearchContext) shadowRoot).findElements(innerElement)));
         }
         else if (shadowRoot instanceof Map)  {
             // ChromeDriver 96+ and Selenium 3.141.59
@@ -83,18 +118,13 @@ public class StandardMacros {
             RemoteWebElement remoteWebElement = new RemoteWebElement();
             remoteWebElement.setParent((RemoteWebDriver) webDriver);
             remoteWebElement.setId(shadowRootKey);
-            return $(remoteWebElement.findElement(innerElement));
+            if (firstResultOnly) result.setResultElement($(remoteWebElement.findElement(innerElement)));
+            else result.setResultElements($$(remoteWebElement.findElements(innerElement)));
         }
         else {
             throw new UITestException("Unexpected return type for shadowRoot: " + shadowRoot.getClass().getName());
         }
-    }
-
-    SelenideElement getElementInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
-        for (By selector : nestedSelectors) {
-            host = getElementInShadowRootOf(host, selector);
-        }
-        return host;
+        return result;
     }
 
     String checkRestMail(String mailUser, String searchPhrase) {

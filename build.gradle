@@ -14,7 +14,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation 'junit:junit:4.13'
     implementation 'com.codeborne:selenide:6.0.3'

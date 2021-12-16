@@ -7,6 +7,7 @@ import com.aventstack.extentreports.reporter.JsonFormatter;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import de.isys.selrep.callback.UITestCallback;
@@ -29,9 +30,11 @@ public abstract class UITest {
 
     private static final String REPORTDIR = "REPORT.UITEST.DIR";
     private static final String BROWSER = "UITEST.BROWSER";
+    private static final String BROWSERLANG = "UITEST.BROWSER.LANG";
     private static final String BASEURL = "BASE.URL";
 
     private static ExtentReports reports;
+
     private final StandardMacros stdMacros = new StandardMacros();
 
     protected UITestReport report = null;
@@ -51,8 +54,6 @@ public abstract class UITest {
         System.out.println("BASE_URL: " + BASE_URL);
     }
 
-    // +++ System.setProperty("chromeoptions.args", "--lang=de");
-    // +++ old reports lose textual description
     @BeforeClass
     public static void setUpClass() throws IOException {
         if (System.getProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY) == null) {
@@ -67,15 +68,16 @@ public abstract class UITest {
         if (System.getProperty(BROWSER) == null) {
             System.setProperty(BROWSER, "chrome");
         }
+        if (System.getProperty(BROWSERLANG) == null) {
+            System.setProperty(BROWSERLANG, "en");
+        }
+        System.setProperty("chromeoptions.args", "--lang=" + System.getProperty(BROWSERLANG));
 
         String reportPath = System.getProperty(REPORTDIR) + "/index.html";
         String jsonPath = System.getProperty(REPORTDIR) + "/index.json";
         System.out.println("Writing Report to " + reportPath);
 
-        reports = new ExtentReports();
-        JsonFormatter jsonReporter = new JsonFormatter(jsonPath);
-        reports.createDomainFromJsonArchive(jsonPath);
-        ExtentSparkReporter htmlReporter = new ExtentSparkReporter(reportPath)
+        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath)
                 .config(ExtentSparkReporterConfig.builder()
                         .offlineMode(true)
                         .build())
@@ -83,7 +85,11 @@ public abstract class UITest {
                 .viewOrder()
                 .as(new ViewName[] { ViewName.TEST, ViewName.DASHBOARD })
                 .apply();
-        reports.attachReporter(jsonReporter, htmlReporter);
+        JsonFormatter jsonReporter = new JsonFormatter(jsonPath);
+        reports = new ExtentReports();
+        reports.setReportUsesManualConfiguration(true);
+        reports.createDomainFromJsonArchive(jsonPath);
+        reports.attachReporter(jsonReporter, sparkReporter);
         Configuration.reportsFolder = System.getProperty(REPORTDIR);
         Configuration.browser = System.getProperty(BROWSER);
     }
@@ -191,6 +197,15 @@ public abstract class UITest {
     }
 
     /**
+     * @param host an element with a ShadowRoot DOM node
+     * @param innerElement selector
+     * @return the collection of elements selected by selector from within the ShadowRoot DOM node of host
+     */
+    protected ElementsCollection getElementsInShadowRootOf(SelenideElement host, By innerElement) {
+        return stdMacros.getElementsInShadowRootOf(host, innerElement);
+    }
+
+    /**
      * Traverses a ShadowRoot hierarchy according to the supplied selectors, where each selector will
      * select the next ShadowRoot DOM node.
      * 
@@ -202,6 +217,15 @@ public abstract class UITest {
      */
     protected SelenideElement getElementInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
         return stdMacros.getElementInNestedShadowRootOf(host, nestedSelectors);
+    }
+
+    /**
+     * @param host an element with a ShadowRoot DOM node
+     * @param nestedSelectors selectors, at least two are required
+     * @return the collection of elements selected by the last selector
+     */
+    protected ElementsCollection getElementsInNestedShadowRootOf(SelenideElement host, By... nestedSelectors) {
+        return stdMacros.getElementsInNestedShadowRootOf(host, nestedSelectors);
     }
 
     /**
