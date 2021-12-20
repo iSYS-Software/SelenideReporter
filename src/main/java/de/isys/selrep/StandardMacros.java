@@ -31,8 +31,6 @@ import static com.codeborne.selenide.WebDriverRunner.source;
 
 public class StandardMacros { 
 
-    // +++ Upload, executeJavaScript
-
     void selectRandomOption(SelenideElement select, int offset) {
         int optionCount = select.findAll(byTagName("option")).size() - offset;
         select.find(byTagName("option"), RandomUtils.nextInt(offset, optionCount)).click();
@@ -42,7 +40,7 @@ public class StandardMacros {
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() - start < millis) {
             // waste some time
-            getWebDriver().getPageSource().replace('S', 's');
+            getWebDriver().getPageSource().replace('e', 'E');
         }
     }
 

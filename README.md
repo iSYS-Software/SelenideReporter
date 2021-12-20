@@ -4,16 +4,16 @@ A reporting framework for the Selenide UI testing tool.
 
 ## Elevator Pitch
 
-[Selenide](https://selenide.org/) is a fluent API for [Selenium Webdriver](https://docs.seleniumhq.org/projects/webdriver/) and very likely the best way to write concise UI tests in Java. But in terms of reporting functionality it relies on generic tooling and some [basic integrations](https://selenide.org/documentation/reports.html).
+[Selenide](https://selenide.org/) is a fluent API for [Selenium Webdriver](https://docs.seleniumhq.org/projects/webdriver/) and probably the best way to write concise UI tests in Java. But in terms of reporting functionality it relies on generic tooling and some [basic integrations](https://selenide.org/documentation/reports.html).
 
 Therefore this framework aims to add the following features to Selenide:
 - opinionated reporting: a way to structure your tests.
-- custom reporting: you decide what should be in the report.
+- custom reporting: you state explicitly what should be in the report.
 - modern visuals (as provided by [Extent Reports](https://github.com/extent-framework/extentreports-java)).
 - self-contained reports (so you can easily publish them on a CI server).
 
 ## Installation
-Include selenide-report.jar from ### TODO ### into your project, as well as a current version of Selenide (>= 6). If you are also using Spring Boot, it is possible that it pulls in older versions of some Selenium jars, which will break Selenide. So make sure that `org.seleniumhq.selenium:selenium-java` and all its transitive dependencies have version >= 4. Spring Boot will likely pull in v3.141.59. An easy way to fix this would be to put `selenium.version=4.0.0` into your gradle.properties.
+Include selenide-reporter.jar from ### TODO ### into your project, as well as a current version of Selenide (>= 6). If you are also using Spring Boot, it is possible that it pulls in older versions of some Selenium jars, which will break Selenide. So make sure that `org.seleniumhq.selenium:selenium-java` and all its transitive dependencies have version >= 4. Spring Boot will likely pull in v3.141.59. An easy way to fix this would be to put `selenium.version=4.0.0` into your gradle.properties.
 
 ## Hello World Test
 ```
