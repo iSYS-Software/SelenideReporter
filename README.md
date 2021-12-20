@@ -34,16 +34,6 @@ public class HelloWorldTest extends UITest {
 
 Run this test via `gradlew -x check clean test --tests tests.HelloWorldTest` and a report will be produced in the `build/reports/selenide` directory. If you want to generate a report for all tests in the project, simply run `gradlew clean test`. Here is a **[screenshot](samples/screenshot.png)** of what the report will look like.
 
-
-## Configuration
-The reports are configured via System Properties, which comes in handy when running on a CI server, where configuration must be provided externally. For local development you can rely on "convention over configuration" and only provide fallbacks, where the defaults aren't reasonable. There is only one fallback implemented currently and it is the URL, where the application to test is running. Use the System Property `BASE.URL` to configure it externally and the annotation `@Fallbacks` as a fallback where the System Property is undefined (such as local development).
-
-Further System Properties:
-- `REPORT.UITEST.DIR`: directory where the reports are written, default is `build/reports/selenide`
-- `UITEST.BROWSER`: browser to use for UI tests, default is `chrome`
-- `UITEST.BROWSER.LANG`: browser language to use for UI tests, default is `en`
-- `org.slf4j.simpleLogger.defaultLogLevel`: log level for Selenide, default is `info`
-
 ## Step by Step
 There's a lot going on in the HelloWorld test and this section explains it in more detail.
 1. Your test class should extend `UITest` or a base class you write that extends `UITest`.
@@ -58,6 +48,17 @@ There's a lot going on in the HelloWorld test and this section explains it in mo
     - report.warning("some warning");
     - report.fail("error description");
     - report.pass("success message - your test method has completed successfully");
+
+## Configuration
+The reports are configured via System Properties, which comes in handy when running on a CI server, where configuration must be provided externally. For local development you can rely on "convention over configuration" and provide fallbacks, where the defaults aren't reasonable. The way to do this is via an annotation (see example above). However, please note that fallbacks aren't implemented for all configuration parameters yet. If you use a fallback, you can still override it in a CI build by setting the corresponding System Property. If neither System Property nor fallback are specified, a default value is applied.
+
+| System Property | Description | Fallback Annotation implemented | Default Value |
+| ------ | ------ | ------ | ------ |
+| `BASE.URL` | URL where the application to test is running. | `@Fallbacks(baseUrl="https://...")` | `http://localhost:8080` |
+| `REPORT.UITEST.DIR` | Directory where the reports are written. | no | `build/reports/selenide` |
+| `UITEST.BROWSER` | Browser to use for UI tests. | no | `chrome` |
+| `UITEST.BROWSER.LANG` | Browser language to use for UI tests. | no | `en` |
+| `org.slf4j.simpleLogger.defaultLogLevel` | Log level for Selenide. | no | `info` |
 
 ## Advanced Usage
 There's a more involved example included [here](src/test/java/tests/ExampleTest.java).
