@@ -44,7 +44,7 @@ public class ReportAppenderTest extends UITest {
         this.run("Report Appender first Run", settings -> {
             open(BASE_URL);
             report.info(textWithScreenshot);
-            report.pass(textWithoutScreenshot, false);
+            report.info(textWithoutScreenshot, false);
         });
     }
 
@@ -54,7 +54,7 @@ public class ReportAppenderTest extends UITest {
         this.run("Report Appender second Run", settings -> {
             open(BASE_URL);
             report.info(textWithScreenshot);
-            report.pass(textWithoutScreenshot, false);
+            report.info(textWithoutScreenshot, false);
         });
         List<com.aventstack.extentreports.model.Test> testList = report.getExtentTest().getExtent().getReport().getTestList();
         for (com.aventstack.extentreports.model.Test test : testList) {

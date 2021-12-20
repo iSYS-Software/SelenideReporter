@@ -8,16 +8,17 @@ plugins {
 description = 'Selenide-Reporter'
 
 group = 'de.isys.selrep'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     implementation 'junit:junit:4.13'
     implementation 'com.codeborne:selenide:6.0.3'
-    implementation 'com.aventstack:extentreports:5.0.9'
+    implementation 'com.github.realulim:extentreports-java:5.0.10'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
