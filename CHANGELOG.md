@@ -28,3 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial release
+
+
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.1...main?from_project_id=143
+[1.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.0...v1.0.1?from_project_id=143
+[1.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/tags/v1.0.0
