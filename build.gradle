@@ -64,6 +64,9 @@ task release {
     dependsOn 'build'
     dependsOn 'prepareRelease'
     dependsOn 'publishSelenideReporterPublicationToNexusRepository'
+    doLast {
+        println "Release done."
+    }
 }
 
 task prepareRelease {
