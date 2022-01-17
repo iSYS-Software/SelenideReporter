@@ -82,8 +82,7 @@ task prepareRelease {
             checkIfWorkingDirectoryIsClean()
             checkIfChangelogHasBeenUpdated(version)
             tagSources(version)
-            publishNewRelease(version)
-            println "Version $version released."
+            println "Version $version prepared."
         }
         else {
             println "No Version, no Release."
@@ -153,11 +152,5 @@ private checkIfChangelogHasBeenUpdated(String version) {
 private tagSources(String tag) {
     println "Tagging Sources ..."
     ['bash', '-c', 'git tag ' + tag + ' && git push --tags'].execute().text.trim()
-    println "Ok"
-}
-
-private publishNewRelease(String version) {
-    println "Publishing ..."
-    tasks.publishSelenideReporterPublicationToNexusRepository.execute()
     println "Ok"
 }
