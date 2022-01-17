@@ -67,10 +67,10 @@ task release {
     dependsOn 'clean'
     dependsOn 'build'
     dependsOn 'prepareRelease'
-//    dependsOn 'publishSelenideReporterPublicationToNexusRepository'
-//    doLast {
-//        println "Version $version released."
-//    }
+    dependsOn 'publishSelenideReporterPublicationToNexusRepository'
+    doLast {
+        println "Version $version released."
+    }
 }
 
 task prepareRelease {
@@ -84,6 +84,7 @@ task prepareRelease {
             // interactive usage - display a dialog to get the version
             version = showDialog()
         }
+        project.setVersion(version)
         if (version) {
             println "Releasing Version $version ..."
             checkIfWorkingDirectoryIsClean()
