@@ -12,14 +12,14 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
-## [1.0.2] - 2022-01-17
+## [v1.0.2] - 2022-01-17
 
 ### Added
 - This Changelog file
 - Task release in build.gradle
 
 
-## [1.0.1] - 2021-12-20
+## [v1.0.1] - 2021-12-20
 
 ### Fixed
 - Use forked version of Extent-Reports that fixes [this bug](https://github.com/extent-framework/extentreports-java/issues/333)
@@ -31,12 +31,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - TODO-Markers for completed tasks
 
 
-## [1.0.0] - 2021-12-16
+## [v1.0.0] - 2021-12-16
 
 ### Added
 - Initial release
 
 
 [unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.1...main?from_project_id=143
-[1.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.0...v1.0.1?from_project_id=143
-[1.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/tags/v1.0.0
+[v1.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.0...v1.0.1?from_project_id=143
+[v1.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/tags/v1.0.0
