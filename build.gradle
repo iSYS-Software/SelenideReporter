@@ -75,7 +75,7 @@ task release {
         if (version) {
             println "Releasing Version $version ..."
             checkIfWorkingDirectoryIsClean()
-            checkIfChangelogHasBeenUpdated()
+            checkIfChangelogHasBeenUpdated(version)
             tagSources(version)
             publishNewRelease(version)
             println "Version $version released."
