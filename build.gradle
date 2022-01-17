@@ -11,6 +11,10 @@ description = 'Selenide-Reporter'
 
 group = 'de.isys.selrep'
 
+ext {
+    releaseVersion = 'unspecified'
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
@@ -63,10 +67,10 @@ task release {
     dependsOn 'clean'
     dependsOn 'build'
     dependsOn 'prepareRelease'
-    dependsOn 'publishSelenideReporterPublicationToNexusRepository'
-    doLast {
-        println "Version $version released."
-    }
+//    dependsOn 'publishSelenideReporterPublicationToNexusRepository'
+//    doLast {
+//        println "Version $version released."
+//    }
 }
 
 task prepareRelease {
@@ -85,7 +89,7 @@ task prepareRelease {
             checkIfWorkingDirectoryIsClean()
             checkIfChangelogHasBeenUpdated(version)
             tagSources(version)
-            println "Version $version prepared."
+            println "Release $version prepared."
         }
         else {
             throw new GradleException("No Version, no Release.");
