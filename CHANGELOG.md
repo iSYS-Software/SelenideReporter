@@ -11,6 +11,9 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 
 ## [Unreleased]
 
+### Changed
+- Task release now publishes to iSYS Nexus Maven Repo
+
 
 ## [1.0.2] - 2022-01-17
 
