@@ -1,3 +1,5 @@
+import groovy.swing.SwingBuilder;
+
 plugins {
     id 'java-library'
     id 'jacoco'
@@ -8,7 +10,6 @@ plugins {
 description = 'Selenide-Reporter'
 
 group = 'de.isys.selrep'
-version = '1.0.1'
 
 repositories {
     mavenCentral()
@@ -56,5 +57,102 @@ publishing {
             }
         }
     }
+}
 
+task release {
+    dependsOn 'clean'
+    dependsOn 'build'
+    doLast {
+        String version;
+        if (project.hasProperty('version') && project.property('version') != 'unspecified') {
+            // non-interactive usage, version is supplied on command-line
+            version = project.property('version')
+        }
+        else {
+            // interactive usage - display a dialog to get the version
+            version = showDialog()
+        }
+        if (version) {
+            println "Releasing Version $version ..."
+            checkIfWorkingDirectoryIsClean()
+            checkIfChangelogHasBeenUpdated()
+            tagSources(version)
+            publishNewRelease(version)
+            println "Version $version released."
+        }
+        else {
+            println "No Version, no Release."
+        }
+    }
+}
+
+private String showDialog() {
+    String userInput = ''
+    String proposedVersion = getProposedVersion()
+    new SwingBuilder().edt {
+        dialog(modal: true, // Otherwise the build will continue running before you close the dialog
+            title: 'Enter Version', // Dialog title
+            alwaysOnTop: true, // pretty much what the name says
+            resizable: false, // Don't allow the user to resize the dialog
+            locationRelativeTo: null, // Place dialog in center of the screen
+            pack: true, // We need to pack the dialog so it will take the size of it's children
+            show: true // Let's show it
+        ) {
+            vbox { // Put everything below each other
+                label(text: "Please enter Version Number:")
+                input = textField(proposedVersion)
+                button(defaultButton: true, text: 'OK', actionPerformed: {
+                        userInput = input.text; // Set version variable to value of input field
+                        dispose(); // Close dialog
+                    })
+            }
+        }
+    }
+    return userInput
+}
+
+private String getLatestVersion() {
+    return ['bash', '-c', 'git tag --sort=creatordate|tail -n 1'].execute().text.trim()
+}
+
+private String getProposedVersion() {
+    String curr = getLatestVersion()
+    if (curr.contains('.')) {
+        String patchLevel = curr.substring(curr.lastIndexOf('.') + 1)
+        return curr.substring(0, curr.lastIndexOf('.') + 1) + ((patchLevel.toInteger()) + 1)
+    }
+    else return "";
+}
+
+private checkIfWorkingDirectoryIsClean() {
+    println "Checking if working Directory is clean ..."
+    String output = ['git', 'status', '--porcelain'].execute().text.trim()
+    if (output.size() > 0) {
+        throw new GradleException('\nWorking Directory not clean!\n\n' + output)
+    }
+    println "Ok"
+}
+
+private checkIfChangelogHasBeenUpdated(String version) {
+    println "Checking if CHANGELOG.md has been updated ..."
+    File file = new File("./CHANGELOG.md");
+    if (!file.text.contains("\n## [" + version + "]")) {
+        throw new GradleException('Release Notes for version " + version + " missing in CHANGELOG.md');
+    }
+    if (!file.text.contains("\n[" + version + "]: https://")) {
+        throw new GradleException('Link to Diff missing in CHANGELOG.md (at the bottom)');
+    }
+    println "Ok"
+}
+
+private tagSources(String tag) {
+    println "Tagging Sources ..."
+    ['bash', '-c', 'git tag ' + tag + ' && git push --tags'].execute().text.trim()
+    println "Ok"
+}
+
+private publishNewRelease(String version) {
+    println "Publishing ..."
+    tasks.publishSelenideReporterPublicationToNexusRepository.execute()
+    println "Ok"
 }
