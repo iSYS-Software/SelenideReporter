@@ -11,8 +11,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 
 ## [Unreleased]
 
+
+## [1.0.2] - 2022-01-17
+
 ### Added
 - This Changelog file
+- Task release in build.gradle
 
 
 ## [1.0.1] - 2021-12-20
