@@ -38,5 +38,6 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 
 
 [unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.1...main?from_project_id=143
+[v1.0.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.1...v1.0.2?from_project_id=143
 [v1.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/v1.0.0...v1.0.1?from_project_id=143
 [v1.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/tags/v1.0.0
