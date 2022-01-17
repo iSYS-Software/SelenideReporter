@@ -137,7 +137,7 @@ private checkIfChangelogHasBeenUpdated(String version) {
     println "Checking if CHANGELOG.md has been updated ..."
     File file = new File("./CHANGELOG.md");
     if (!file.text.contains("\n## [" + version + "]")) {
-        throw new GradleException('Release Notes for version " + version + " missing in CHANGELOG.md');
+        throw new GradleException('Release Notes for version ' + version + ' missing in CHANGELOG.md');
     }
     if (!file.text.contains("\n[" + version + "]: https://")) {
         throw new GradleException('Link to Diff missing in CHANGELOG.md (at the bottom)');
