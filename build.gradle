@@ -88,7 +88,7 @@ task prepareRelease {
             println "Version $version prepared."
         }
         else {
-            println "No Version, no Release."
+            throw new GradleException("No Version, no Release.");
         }
     }
 }
