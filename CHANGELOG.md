@@ -11,8 +11,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 
 ## [Unreleased]
 
+
+## [1.0.3 - 2022-01-24]
+
 ### Changed
 - Task release now publishes to iSYS Nexus Maven Repo
+- new version of forked Extent-Reports that provides [this enhancement](https://github.com/extent-framework/extentreports-java/issues/329)
 
 
 ## [1.0.2] - 2022-01-17
@@ -40,7 +44,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.2...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.3...main?from_project_id=143
+[1.0.3]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.2...1.0.3?from_project_id=143
 [1.0.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.1...1.0.2?from_project_id=143
 [1.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.0...1.0.1?from_project_id=143
 [1.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/tags/1.0.0
