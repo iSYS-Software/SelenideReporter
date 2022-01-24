@@ -17,6 +17,7 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ### Changed
 - Task release now publishes to iSYS Nexus Maven Repo
 - new version of forked Extent-Reports that provides [this enhancement](https://github.com/extent-framework/extentreports-java/issues/329)
+- support Java 1.8
 
 
 ## [1.0.2] - 2022-01-17

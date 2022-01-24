@@ -16,10 +16,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 import lombok.Data;
@@ -150,22 +148,24 @@ public class StandardMacros {
     }
 
     void deleteRestMail(String mailUser) {
+        HttpURLConnection conn = null;
         try {
             String restMailUrl = "https://www.restmail.net/mail/" + mailUser;
-            var request = HttpRequest.newBuilder()
-                    .uri(URI.create(restMailUrl))
-                    .header("Content-Type", "application/json")
-                    .DELETE()
-                    .build();
-            HttpResponse<String> resp = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            if (resp.statusCode() != 200) {
-                throw new UITestException("Cannot delete Mail to " + mailUser + ": " + resp.body() + "/" + resp.statusCode());
+            URL url = new URL(restMailUrl);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setRequestProperty("Content-Type", "application/json");
+            int status = conn.getResponseCode();
+            if (status != 200) {
+                throw new UITestException("Cannot delete Mail to " + mailUser + ": " + status);
             }
             open(restMailUrl);
-            System.out.println("Mail to " + mailUser + " deleted.");
         }
-        catch (IOException | InterruptedException ex) {
+        catch (IOException ex) {
             throw new UITestException(ex);
+        }
+        finally {
+            if (conn != null) conn.disconnect();
         }
     }
 
