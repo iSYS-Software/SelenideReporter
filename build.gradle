@@ -12,8 +12,9 @@ description = 'Selenide-Reporter'
 group = 'de.isys.selrep'
 
 ext {
-    releaseVersion = 'unspecified'
+    nextVersion = '1.0.4-SNAPSHOT'
 }
+jar.archiveName="selenide-reporter-" + ext.nextVersion + ".jar"
 
 repositories {
     mavenCentral()
@@ -64,9 +65,9 @@ publishing {
 }
 
 task release {
+    dependsOn 'prepareRelease'
     dependsOn 'clean'
     dependsOn 'build'
-    dependsOn 'prepareRelease'
     dependsOn 'publishSelenideReporterPublicationToNexusRepository'
     doLast {
         println "Version $version released."
@@ -90,6 +91,7 @@ task prepareRelease {
             checkIfWorkingDirectoryIsClean()
             checkIfChangelogHasBeenUpdated(version)
             tagSources(version)
+            ext.nextVersion = version
             println "Release $version prepared."
         }
         else {
