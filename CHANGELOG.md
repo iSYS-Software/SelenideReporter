@@ -12,7 +12,7 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
-## [1.0.3 - 2022-01-24]
+## [1.0.3] - 2022-01-24
 
 ### Changed
 - Task release now publishes to iSYS Nexus Maven Repo
