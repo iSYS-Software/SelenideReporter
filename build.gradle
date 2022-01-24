@@ -21,6 +21,11 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 dependencies {
     implementation 'junit:junit:4.13'
     implementation 'com.codeborne:selenide:6.0.3'
