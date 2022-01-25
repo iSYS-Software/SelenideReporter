@@ -28,8 +28,8 @@ java {
 }
 
 dependencies {
+    api 'com.codeborne:selenide:6.0.3'
     implementation 'junit:junit:4.13'
-    implementation 'com.codeborne:selenide:6.0.3'
     implementation 'com.github.realulim:extentreports-java:5.0.11'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
