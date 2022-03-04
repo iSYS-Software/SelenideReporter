@@ -20,13 +20,12 @@ public class ShadowRootTest extends UITest {
     public void shadowRoot() {
         this.run("Shadow Root", "check if shadow root is accessible by helper methods", settings -> {
             open(BASE_URL);
-            $("footer button").click();
-            $$(".shepherd-header .shepherd-cancel-icon").filterBy(visible).first().click();
             report.info("App Start Screen");
             SelenideElement inner = getElementInShadowRootOf($("#app-preview"), By.cssSelector("#previewLumo"));
             inner.shouldBe(visible);
             ElementsCollection innerColl = getElementsInShadowRootOf($("#app-preview"), By.cssSelector("div"));
             innerColl.shouldHave(size(4));
+            report.pass("Shadow Root is accessible");
         });
     }
 

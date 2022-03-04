@@ -9,8 +9,6 @@ plugins {
 
 description = 'Selenide-Reporter'
 
-group = 'de.isys.selrep'
-
 ext {
     nextVersion = '1.0.4-SNAPSHOT'
 }
@@ -57,18 +55,7 @@ publishing {
             url = layout.buildDirectory.dir("repo")
         }
         maven {
-            url "https://gitlab.isys.de/api/v4/projects/143/packages/maven"
-            name "iSYS"
-            credentials(HttpHeaderCredentials) {
-                name = 'Private-Token'
-                value = gitLabPrivateToken
-            }
-            authentication {
-                header(HttpHeaderAuthentication)
-            }
-        }
-        maven {
-            name "nexus"
+            name "isysNexus"
             url "https://nexus.isys.de/repository/maven-releases/"
             credentials {
                 username project.nexusUser
@@ -82,7 +69,7 @@ task release {
     dependsOn 'prepareRelease'
     dependsOn 'clean'
     dependsOn 'build'
-    dependsOn 'publishSelenideReporterPublicationToNexusRepository'
+    dependsOn 'publishSelenideReporterPublicationToIsysNexusRepository'
     doLast {
         println "Version $version released."
     }
