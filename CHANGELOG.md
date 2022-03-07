@@ -12,6 +12,13 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.0.4] - 2022-03-07
+
+### Changed
+- bump Selenide version to 6.2.1
+- general cleanup for first release on Github
+
+
 ## [1.0.3] - 2022-01-24
 
 ### Changed
@@ -45,7 +52,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.3...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.4...main?from_project_id=143
+[1.0.4]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.3...1.0.4?from_project_id=143
 [1.0.3]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.2...1.0.3?from_project_id=143
 [1.0.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.1...1.0.2?from_project_id=143
 [1.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.0...1.0.1?from_project_id=143
