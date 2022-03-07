@@ -9,10 +9,10 @@ plugins {
 
 description = 'Selenide-Reporter'
 
-group = 'de.isys'
+group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '1.0.4-SNAPSHOT'
+    nextVersion = '1.0.5-SNAPSHOT'
 }
 jar.archiveName="selenide-reporter-" + ext.nextVersion + ".jar"
 
