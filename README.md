@@ -13,7 +13,7 @@ Therefore this framework aims to add the following features to Selenide:
 - self-contained reports (so you can easily publish them on a CI server).
 
 ## Installation
-Include SelenideReporter into your project like so:
+Include SelenideReporter into your project like so (assuming 1.0.4 to be the version you want - see [Releases](../../releases) for the most current version):
 
     repositories {
         ...
