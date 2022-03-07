@@ -9,6 +9,8 @@ plugins {
 
 description = 'Selenide-Reporter'
 
+group = 'de.isys'
+
 ext {
     nextVersion = '1.0.4-SNAPSHOT'
 }
