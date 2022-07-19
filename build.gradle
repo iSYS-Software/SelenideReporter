@@ -27,8 +27,12 @@ java {
     }
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add("-Xlint:unchecked")
+}
+
 dependencies {
-    api 'com.codeborne:selenide:6.2.1'
+    api 'com.codeborne:selenide:6.5.2'
     api 'com.github.realulim:extentreports-java:5.0.11'
     implementation 'junit:junit:4.13'
     implementation 'commons-io:commons-io:2.11.0'

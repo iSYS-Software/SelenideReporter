@@ -109,6 +109,7 @@ public class StandardMacros {
         else if (shadowRoot instanceof Map)  {
             // ChromeDriver 96+ and Selenium 3.141.59
             // Based on https://github.com/SeleniumHQ/selenium/issues/10050#issuecomment-974231601
+            @SuppressWarnings("unchecked")
             Map<String, Object> shadowRootMap = (Map<String, Object>) shadowRoot;
             String shadowRootKey = (String) shadowRootMap.keySet().toArray()[0];
             RemoteWebElement remoteWebElement = new RemoteWebElement();
