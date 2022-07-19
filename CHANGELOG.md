@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.0.5] - 2022-07-22
+
+###  Fixed
+- catch Throwable in UiTestReport to make sure it can still be written in case of fatal error
+
+
 ## [1.0.4] - 2022-03-07
 
 ### Changed
@@ -52,7 +58,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.4...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.5...main?from_project_id=143
+[1.0.5]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.4...1.0.5?from_project_id=143
 [1.0.4]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.3...1.0.4?from_project_id=143
 [1.0.3]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.2...1.0.3?from_project_id=143
 [1.0.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.1...1.0.2?from_project_id=143

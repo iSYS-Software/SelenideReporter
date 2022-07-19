@@ -99,8 +99,8 @@ public class UITestReport {
                 Media media = MediaEntityBuilder.createScreenCaptureFromPath(destFile.getName()).build();
                 log(status, msg, t, media);
             }
-            catch (Exception e) {
-                log(Status.WARNING, "Could not take Screenshot: " + e.toString());
+            catch (Throwable t2) {
+                log(Status.WARNING, "Could not take Screenshot: " + t2.toString());
                 log(status, msg, t);
             }
         }
