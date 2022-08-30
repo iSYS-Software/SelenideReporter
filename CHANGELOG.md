@@ -10,7 +10,7 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 
 
 ## [Unreleased]
-- bump Selenide to 6.5.2
+- bump Selenide to 6.7.3
 
 
 ## [1.0.5] - 2022-07-22
