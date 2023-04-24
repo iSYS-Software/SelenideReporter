@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.0.7] - 2023-04-24
+
+### Changed
+- add newest version of httpclient5 to prevent dependency clash with Spring Boot
+
+
 ## [1.0.6] - 2023-04-24
 
 ### Changed
