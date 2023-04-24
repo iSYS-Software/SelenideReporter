@@ -23,7 +23,7 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
@@ -32,12 +32,13 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    api 'com.codeborne:selenide:6.7.3'
+    api 'com.codeborne:selenide:6.13.0'
     api 'com.github.realulim:extentreports-java:5.0.11'
     implementation 'junit:junit:4.13'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'org.seleniumhq.selenium:selenium-http-jdk-client:4.8.3'
 }
 
 publishing {

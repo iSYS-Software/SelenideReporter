@@ -10,7 +10,14 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 
 
 ## [Unreleased]
-- bump Selenide to 6.7.3
+
+
+## [1.0.6] - 2023-04-24
+
+### Changed
+- bump Selenide to 6.13.0
+- use Java 11+ Http client to support Chrome 111+
+- bump minimum Java version to 11
 
 
 ## [1.0.5] - 2022-07-22
