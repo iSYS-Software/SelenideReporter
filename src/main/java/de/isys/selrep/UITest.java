@@ -32,6 +32,7 @@ public abstract class UITest {
     private static final String BROWSER = "UITEST.BROWSER";
     private static final String BROWSERLANG = "UITEST.BROWSER.LANG";
     private static final String BASEURL = "BASE.URL";
+    private static final String APPEND = "APPEND.TO.EXISTING.REPORT";
 
     private static ExtentReports reports;
 
@@ -78,6 +79,8 @@ public abstract class UITest {
         String jsonPath = System.getProperty(REPORTDIR) + "/index.json";
         System.out.println("Writing Report to " + reportPath);
 
+        boolean appendToExistingReport = System.getProperty(APPEND) == null ? true : System.getProperty(APPEND).equalsIgnoreCase("true");
+        
         ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath)
                 .config(ExtentSparkReporterConfig.builder()
                         .offlineMode(true)
@@ -86,11 +89,19 @@ public abstract class UITest {
                 .viewOrder()
                 .as(new ViewName[] { ViewName.TEST, ViewName.DASHBOARD })
                 .apply();
-        JsonFormatter jsonReporter = new JsonFormatter(jsonPath);
         reports = new ExtentReports();
         reports.setReportUsesManualConfiguration(true);
-        reports.createDomainFromJsonArchive(jsonPath);
-        reports.attachReporter(jsonReporter, sparkReporter);
+        if (appendToExistingReport) {
+            try {
+                JsonFormatter jsonReporter = new JsonFormatter(jsonPath);
+                reports.createDomainFromJsonArchive(jsonPath);
+                reports.attachReporter(jsonReporter);
+            }
+            catch (Throwable t) {
+                System.err.println("Could not parse JSON at " + jsonPath + " due to: " + t.toString());
+            }
+        }
+        reports.attachReporter(sparkReporter);
         Configuration.reportsFolder = System.getProperty(REPORTDIR);
         Configuration.browser = System.getProperty(BROWSER);
     }
@@ -101,7 +112,13 @@ public abstract class UITest {
 
     @After
     public void tearDown() {
-        reports.flush();
+        try {
+            reports.flush();
+            System.out.println("Flushed Test Report.");
+        }
+        catch (Throwable t) {
+            System.err.println("Could not flush Report: " + t.toString());
+        }
     }
 
     protected void run(UITestCallback callback) {

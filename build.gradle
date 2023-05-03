@@ -12,7 +12,7 @@ description = 'Selenide-Reporter'
 group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '1.0.5-SNAPSHOT'
+    nextVersion = '1.0.9-SNAPSHOT'
 }
 jar.archiveName="selenide-reporter-" + ext.nextVersion + ".jar"
 
@@ -40,6 +40,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.32'
     implementation 'org.seleniumhq.selenium:selenium-http-jdk-client:4.8.3'
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 publishing {

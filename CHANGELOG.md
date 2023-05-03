@@ -12,6 +12,14 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.0.8] - 2023-05-03
+
+### Changed
+- update GSON dependency
+- introduce System Property APPEND.TO.EXISTING.REPORT to switch off JsonReporter
+- safer code execution by introducing several try/catch blocks
+
+
 ## [1.0.7] - 2023-04-24
 
 ### Changed
