@@ -9,9 +9,11 @@ import com.aventstack.extentreports.reporter.configuration.ViewName;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.google.gson.TypeAdapter;
 
 import de.isys.selrep.callback.UITestCallback;
 import de.isys.selrep.callback.UITestFinalizeCallback;
+import de.isys.selrep.typeadapter.FileAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -25,6 +27,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class UITest {
 
@@ -80,7 +85,7 @@ public abstract class UITest {
         System.out.println("Writing Report to " + reportPath);
 
         boolean appendToExistingReport = System.getProperty(APPEND) == null ? true : System.getProperty(APPEND).equalsIgnoreCase("true");
-        
+
         ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath)
                 .config(ExtentSparkReporterConfig.builder()
                         .offlineMode(true)
@@ -94,6 +99,9 @@ public abstract class UITest {
         if (appendToExistingReport) {
             try {
                 JsonFormatter jsonReporter = new JsonFormatter(jsonPath);
+                Map<Type, TypeAdapter<?>> typeMappings = new HashMap<>();
+                typeMappings.put(File.class, new FileAdapter());
+                jsonReporter.addTypeAdapterMapping(typeMappings);
                 reports.createDomainFromJsonArchive(jsonPath);
                 reports.attachReporter(jsonReporter);
             }

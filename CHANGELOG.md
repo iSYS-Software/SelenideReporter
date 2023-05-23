@@ -12,7 +12,13 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
-## [1.0.9] - 2023-05-23
+## [1.1.0] - 2023-05-23
+
+### Added
+- Java 11 Support through FileAdapter mapping
+
+
+## [1.0.9] - 2023-05-22
 
 ### Changed
 - updated dependencies: extentreports-java, Selenide, selenium-http-jdk-client
@@ -86,7 +92,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.9...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.0...main?from_project_id=143
+[1.1.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.9...1.1.0?from_project_id=143
 [1.0.9]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.8...1.0.9?from_project_id=143
 [1.0.8]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.7...1.0.8?from_project_id=143
 [1.0.7]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.6...1.0.7?from_project_id=143

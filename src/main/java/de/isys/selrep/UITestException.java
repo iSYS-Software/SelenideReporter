@@ -1,7 +1,7 @@
 package de.isys.selrep;
 
 /**
- * Marker-Exception used for structuring the code better.
+ * Marker-Exception used for better structuring the code.
  */
 public class UITestException extends RuntimeException {
 
