@@ -12,6 +12,17 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.1.1] - 2023-06-17
+
+### Fixed
+- set start and end timestamp when running tests
+- new version of extentreports-java that preserves timestamps between tests
+- do not overwrite screenshots, make image file names more likely to be unique
+
+### Changed
+- use screenshot facility of Selenide instead of Selenium
+
+
 ## [1.1.0] - 2023-05-23
 
 ### Added
@@ -92,7 +103,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.0...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.1...main?from_project_id=143
+[1.1.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.0...1.1.1?from_project_id=143
 [1.1.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.9...1.1.0?from_project_id=143
 [1.0.9]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.8...1.0.9?from_project_id=143
 [1.0.8]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.7...1.0.8?from_project_id=143

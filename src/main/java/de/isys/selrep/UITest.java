@@ -2,6 +2,7 @@ package de.isys.selrep;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.JsonFormatter;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
@@ -28,7 +29,9 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class UITest {
@@ -121,6 +124,8 @@ public abstract class UITest {
     @After
     public void tearDown() {
         try {
+            List<Test> testList = reports.getReport().getTestList();
+            testList.get(testList.size() - 1).setEndTime(new Date());
             reports.flush();
             System.out.println("Flushed Test Report.");
         }
@@ -149,6 +154,7 @@ public abstract class UITest {
             testName = "Default-Test";
         }
         ExtentTest extentTest = reports.createTest(testName, testDescription);
+        extentTest.getModel().setStartTime(new Date());
         this.report = new UITestReport(System.getProperty(REPORTDIR), extentTest);
         UITestSettings settings = new UITestSettings(BROWSER);
         UITestResult result = new UITestResult(settings);

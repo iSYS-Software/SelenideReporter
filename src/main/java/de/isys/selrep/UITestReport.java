@@ -5,23 +5,20 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Media;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
-import java.io.File;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.Selenide.screenshot;
 
 @Getter
 @Setter
 public class UITestReport {
 
-    private static int screenshotCounter = 100;
+    private int startingScreenshotCounter = 100;
+    private final String testShortCode;
 
     private final String reportDirPath;
     private final ExtentTest extentTest;
@@ -31,6 +28,10 @@ public class UITestReport {
     public UITestReport(String reportDirPath, ExtentTest extentTest) {
         this.reportDirPath = reportDirPath;
         this.extentTest = extentTest;
+        this.testShortCode = StringUtils.abbreviate(
+                extentTest.getModel().getName()
+                        .replaceAll("\\P{Print}", "").replaceAll("\\s+",""),
+                "", 16).toLowerCase();
     }
 
     public void startSection(String sectionName) {
@@ -92,11 +93,8 @@ public class UITestReport {
     private void writeToReport(Status status, String msg, Throwable t, boolean captureScreen) {
         if (captureScreen) {
             try {
-                TakesScreenshot screenshot = (TakesScreenshot)getWebDriver(); // can throw NPE, NSME, ...
-                File sourceFile = screenshot.getScreenshotAs(OutputType.FILE);
-                File destFile = createNonExistingFileForScreenshot();
-                FileUtils.copyFile(sourceFile, destFile);
-                Media media = MediaEntityBuilder.createScreenCaptureFromPath(destFile.getName()).build();
+                String pngFileName = screenshot(generateUniqueBaseName());
+                Media media = MediaEntityBuilder.createScreenCaptureFromPath(pngFileName).build();
                 log(status, msg, t, media);
             }
             catch (Throwable t2) {
@@ -108,6 +106,11 @@ public class UITestReport {
             log(status, msg);
         }
         System.out.println(msg);
+    }
+
+    private String generateUniqueBaseName() {
+        // not as good as a UUID, but should be good enough for even the largest of test suites
+        return testShortCode + "-" + String.valueOf(startingScreenshotCounter++) + "-" + RandomStringUtils.randomAlphanumeric(4);
     }
 
     void failOnException(Throwable e) {
@@ -143,16 +146,6 @@ public class UITestReport {
             extentTest.log(status, details, t, media);
         }
         else throw new UITestException("Test Report not initialized");
-    }
-
-    private File createNonExistingFileForScreenshot(){
-        File file = null;
-        while (file == null || file.exists()) {
-            String fileNameCounter = String.valueOf(screenshotCounter++);
-            String fileName = "screen-" + fileNameCounter + ".png";
-            file = new File(reportDirPath, fileName);
-        }
-        return file;
     }
 
 }
