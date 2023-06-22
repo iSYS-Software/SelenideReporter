@@ -19,9 +19,9 @@ jar.archiveName="selenide-reporter-" + ext.nextVersion + ".jar"
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-//    flatDir {
-//        dirs 'libs'
-//    }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 java {
@@ -36,7 +36,7 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     api 'com.codeborne:selenide:6.14.0'
-    api 'com.github.realulim:extentreports-java:5.0.17'
+    api 'com.github.realulim:extentreports-java:5.0.18'
     //implementation 'org.freemarker:freemarker:2.3.32'
     //implementation 'com.google.code.gson:gson:2.10.1'
     //implementation 'io.reactivex.rxjava3:rxjava:3.1.6'

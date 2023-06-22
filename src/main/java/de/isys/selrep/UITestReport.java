@@ -98,7 +98,6 @@ public class UITestReport {
                 Media media = MediaEntityBuilder.createScreenCaptureFromPath(pngFileName).build();
                 String reportsFolder = StringUtils.appendIfMissing(Configuration.reportsFolder, "/");
                 String resolvedPath = StringUtils.substringAfter(media.getPath(), reportsFolder);
-                log(status, "ReportsFolder: " + reportsFolder + ", Path: " + media.getPath() + ", ResolvedPath: " + resolvedPath);
                 // make path relative to support self-contained report
                 media.setResolvedPath(resolvedPath);
                 log(status, msg, t, media);
