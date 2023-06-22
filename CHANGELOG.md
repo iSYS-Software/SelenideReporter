@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.1.2] - 2023-06-22
+
+### Changed
+- path to screenshot images is now relative to make report self-contained
+
+
 ## [1.1.1] - 2023-06-17
 
 ### Fixed
@@ -103,7 +109,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.1...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.2...main?from_project_id=143
+[1.1.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.1...1.1.2?from_project_id=143
 [1.1.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.0...1.1.1?from_project_id=143
 [1.1.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.9...1.1.0?from_project_id=143
 [1.0.9]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.0.8...1.0.9?from_project_id=143

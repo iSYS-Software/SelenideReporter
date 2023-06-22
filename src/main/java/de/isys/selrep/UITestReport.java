@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Media;
+import com.codeborne.selenide.Configuration;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -95,6 +96,9 @@ public class UITestReport {
             try {
                 String pngFileName = screenshot(generateUniqueBaseName());
                 Media media = MediaEntityBuilder.createScreenCaptureFromPath(pngFileName).build();
+                String reportsFolder = StringUtils.appendIfMissing(Configuration.reportsFolder, "/");
+                // make path relative to support self-contained report
+                media.setResolvedPath(StringUtils.substringAfter(media.getPath(), reportsFolder));
                 log(status, msg, t, media);
             }
             catch (Throwable t2) {
