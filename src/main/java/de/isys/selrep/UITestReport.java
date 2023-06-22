@@ -31,7 +31,7 @@ public class UITestReport {
         this.extentTest = extentTest;
         this.testShortCode = StringUtils.abbreviate(
                 extentTest.getModel().getName()
-                        .replaceAll("\\P{Print}", "").replaceAll("\\s+",""),
+                        .replaceAll("\\P{Print}", "").replaceAll("\\s+","").replaceAll("/", ""),
                 "", 16).toLowerCase();
     }
 
@@ -97,8 +97,10 @@ public class UITestReport {
                 String pngFileName = screenshot(generateUniqueBaseName());
                 Media media = MediaEntityBuilder.createScreenCaptureFromPath(pngFileName).build();
                 String reportsFolder = StringUtils.appendIfMissing(Configuration.reportsFolder, "/");
+                String resolvedPath = StringUtils.substringAfter(media.getPath(), reportsFolder);
+                log(status, "ReportsFolder: " + reportsFolder + ", Path: " + media.getPath() + ", ResolvedPath: " + resolvedPath);
                 // make path relative to support self-contained report
-                media.setResolvedPath(StringUtils.substringAfter(media.getPath(), reportsFolder));
+                media.setResolvedPath(resolvedPath);
                 log(status, msg, t, media);
             }
             catch (Throwable t2) {
