@@ -31,7 +31,8 @@ public class UITestReport {
         this.extentTest = extentTest;
         this.testShortCode = StringUtils.abbreviate(
                 extentTest.getModel().getName()
-                        .replaceAll("\\P{Print}", "").replaceAll("\\s+","").replaceAll("/", ""),
+                        .replaceAll("\\P{Print}", "").replaceAll("\\s+","")
+                        .replaceAll("[\\\\/:*?\"<>|]", "_"),
                 "", 16).toLowerCase();
     }
 
