@@ -13,7 +13,7 @@ Therefore this framework aims to add the following features to Selenide:
 - self-contained reports (so you can easily publish them on a CI server).
 
 ## Installation
-Include SelenideReporter into your project like so (assuming 1.0.4 to be the version you want - see [Releases](../../releases) for the most current version):
+Include SelenideReporter into your project like so (assuming 1.1.4 to be the version you want - see [Releases](../../releases) for the most current version):
 
     repositories {
         ...
@@ -22,7 +22,7 @@ Include SelenideReporter into your project like so (assuming 1.0.4 to be the ver
 
     dependencies {
         ....
-        testImplementation 'com.github.iSYS-Software:SelenideReporter:1.0.4'
+        testImplementation 'com.github.iSYS-Software:SelenideReporter:1.1.4'
     }
 
 This will pull in a current version of Selenide (>= 6). If you are also using Spring Boot, it is possible that it pulls in older versions of some Selenium jars, which will break Selenide. So make sure that `org.seleniumhq.selenium:selenium-java` and all its transitive dependencies have version >= 4. Spring Boot might pull in v3.141.59. An easy way to fix this would be to put `selenium.version=4.0.0` into your gradle.properties.
