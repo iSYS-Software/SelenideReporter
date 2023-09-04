@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.1.5] - 2023-09-04
+
+### Added
+- define minimum version constraint for httpclient5
+
+
 ## [1.1.4] - 2023-06-23
 
 ### Fixed
@@ -121,7 +127,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.4...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.5...main?from_project_id=143
+[1.1.5]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.4...1.1.5?from_project_id=143
 [1.1.4]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.3...1.1.4?from_project_id=143
 [1.1.3]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.2...1.1.3?from_project_id=143
 [1.1.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.1...1.1.2?from_project_id=143

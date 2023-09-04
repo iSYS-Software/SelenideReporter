@@ -12,7 +12,7 @@ description = 'Selenide-Reporter'
 group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '1.0.9-SNAPSHOT'
+    nextVersion = '1.1.6-SNAPSHOT'
 }
 jar.archiveName="selenide-reporter-" + ext.nextVersion + ".jar"
 
@@ -35,7 +35,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    api 'com.codeborne:selenide:6.14.0'
+    api 'com.codeborne:selenide:6.17.2'
     api 'com.github.realulim:extentreports-java:5.0.18'
     //implementation 'org.freemarker:freemarker:2.3.32'
     //implementation 'com.google.code.gson:gson:2.10.1'
@@ -48,7 +48,12 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
     implementation 'org.seleniumhq.selenium:selenium-http-jdk-client:4.9.1'
-    implementation 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+    implementation 'org.apache.httpcomponents.client5:httpclient5'
+    constraints {
+        implementation('org.apache.httpcomponents.client5:httpclient5:5.2.1') {
+            because 'previous versions have a bug impacting this application'
+        }
+    }
     implementation 'com.google.code.gson:gson:2.10.1'
 }
 
@@ -87,7 +92,6 @@ task release {
     dependsOn 'prepareRelease'
     dependsOn 'clean'
     dependsOn 'build'
-    dependsOn 'publishSelenideReporterPublicationToIsysNexusRepository'
     doLast {
         println "Version $version released."
     }
