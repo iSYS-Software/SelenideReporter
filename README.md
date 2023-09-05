@@ -29,11 +29,13 @@ This will pull in a current version of Selenide (>= 6). If you are also using Sp
 pulls in older versions of some Selenium jars, which will break Selenide. So make sure that 
 `org.seleniumhq.selenium:selenium-java` and all its transitive dependencies have version >= 4. Spring Boot might 
 pull in v3.141.59. An easy way to fix this would be to put a reasonably current version like 
-`selenium.version=4.11.0` into your gradle.properties.
+`selenium.version=4.11.0` into your gradle.properties. For the same reason you should make sure that 
+`org.apache.httpcomponents.client5:httpclient5` has at least version 5.2.1, otherwise you can again configure 
+`httpclient5.version=5.2.1` in your gradle.properties.
 
 Additionally, if you want to run your tests via Chrome, you need to install chromedriver locally at 
 `/usr/bin/chromedriver` (or configure another location, see below under Configuration). If you want to use other 
-browsers, you need to install the corresponding webdriver or headless browser.
+browsers, you may need to install their corresponding webdriver or the browser (preferably in a headless version).
 
 ## Hello World Test
 ```
