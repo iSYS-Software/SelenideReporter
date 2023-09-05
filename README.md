@@ -13,7 +13,7 @@ Therefore this framework aims to add the following features to Selenide:
 - self-contained reports (so you can easily publish them on a CI server).
 
 ## Installation
-Include SelenideReporter into your project like so (assuming 1.1.5 to be the version you want - see [Releases](../../releases) for the most current version):
+Include SelenideReporter into your project like so (assuming 1.1.6 to be the version you want - see [Releases](../../releases) for the most current version):
 
     repositories {
         ...
@@ -22,10 +22,18 @@ Include SelenideReporter into your project like so (assuming 1.1.5 to be the ver
 
     dependencies {
         ....
-        testImplementation 'com.github.iSYS-Software:SelenideReporter:1.1.5'
+        testImplementation 'com.github.iSYS-Software:SelenideReporter:1.1.6'
     }
 
-This will pull in a current version of Selenide (>= 6). If you are also using Spring Boot, it is possible that it pulls in older versions of some Selenium jars, which will break Selenide. So make sure that `org.seleniumhq.selenium:selenium-java` and all its transitive dependencies have version >= 4. Spring Boot might pull in v3.141.59. An easy way to fix this would be to put a reasonably current version like `selenium.version=4.11.0` into your gradle.properties.
+This will pull in a current version of Selenide (>= 6). If you are also using Spring Boot, it is possible that it 
+pulls in older versions of some Selenium jars, which will break Selenide. So make sure that 
+`org.seleniumhq.selenium:selenium-java` and all its transitive dependencies have version >= 4. Spring Boot might 
+pull in v3.141.59. An easy way to fix this would be to put a reasonably current version like 
+`selenium.version=4.11.0` into your gradle.properties.
+
+Additionally, if you want to run your tests via Chrome, you need to install chromedriver locally at 
+`/usr/bin/chromedriver` (or configure another location, see below under Configuration). If you want to use other 
+browsers, you need to install the corresponding webdriver or headless browser.
 
 ## Hello World Test
 ```
@@ -70,6 +78,7 @@ The reports are configured via System Properties, which comes in handy when runn
 | `REPORT.UITEST.DIR` | Directory where the reports are written. | no | `build/reports/selenide` |
 | `UITEST.BROWSER` | Browser to use for UI tests. | no | `chrome` |
 | `UITEST.BROWSER.LANG` | Browser language to use for UI tests. | no | `en` |
+| `webdriver.chrome.driver` | Location of chromedriver when using Chrome. | no | `/usr/bin/chromedriver` |
 | `org.slf4j.simpleLogger.defaultLogLevel` | Log level for Selenide. | no | `info` |
 
 ## Advanced Usage

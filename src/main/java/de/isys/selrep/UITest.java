@@ -40,6 +40,7 @@ public abstract class UITest {
     private static final String BROWSER = "UITEST.BROWSER";
     private static final String BROWSERLANG = "UITEST.BROWSER.LANG";
     private static final String BASEURL = "BASE.URL";
+    private static final String CHROMEDRIVER = "webdriver.chrome.driver";
     private static final String APPEND = "APPEND.TO.EXISTING.REPORT";
 
     private static ExtentReports reports;
@@ -61,6 +62,11 @@ public abstract class UITest {
         }
         this.BASE_URL = baseUrl;
         System.out.println("BASE_URL: " + BASE_URL);
+
+        if (System.getProperty(CHROMEDRIVER) == null) {
+            System.setProperty(CHROMEDRIVER, "/usr/bin/chromedriver");
+        }
+        System.out.println("Location of chromedriver: " + System.getProperty(CHROMEDRIVER));
     }
 
     @BeforeClass
