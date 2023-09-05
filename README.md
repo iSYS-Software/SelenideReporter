@@ -35,7 +35,7 @@ pull in v3.141.59. An easy way to fix this would be to put a reasonably current 
 
 Additionally, if you want to run your tests via Chrome, you need to install chromedriver locally at 
 `/usr/bin/chromedriver` (or configure another location, see below under Configuration). If you want to use other 
-browsers, you may need to install their corresponding webdriver or the browser (preferably in a headless version).
+browsers, you may need to install their corresponding webdriver or the browser (possibly in a headless version).
 
 ## Hello World Test
 ```
