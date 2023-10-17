@@ -1,0 +1,32 @@
+header:
+  schema-version: '1.0.0'
+  expiration-date: '2024-10-17'
+  last-reviewed: '2023-10-17'
+  project-url: https://github.com/iSYS-Software/SelenideReporter
+  changelog: https://github.com/iSYS-Software/SelenideReporter/blob/main/CHANGELOG.md
+  license: https://github.com/iSYS-Software/SelenideReporter/blob/main/LICENSE
+project-lifecycle:
+  status: active
+  bug-fixes-only: false
+  core-maintainers:
+  - github:realulim
+  - github:ponschab
+contribution-policy:
+  accepts-pull-requests: true
+  accepts-automated-pull-requests: true
+distribution-points:
+- https://github.com/iSYS-Software/SelenideReporter/releases
+- pkg:jitpack/#iSYS-Software/SelenideReporter
+security-contacts:
+- type: email
+  value: ulrich.mayring@isys.de
+  primary: false
+- type: email
+  value: marc.ponschab@isys.de
+  primary: true
+vulnerability-reporting:
+  accepts-vulnerability-reports: false
+dependencies:
+  third-party-packages: true
+  dependencies-lists:
+  - https://github.com/iSYS-Software/SelenideReporter/blob/main/build.gradle
