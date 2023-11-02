@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [1.1.7] - 2023-11-02
+
+### Added
+- configuration parameters for up to three external API URLs
+
+
 ## [1.1.6] - 2023-09-05
 
 ### Added
@@ -136,7 +142,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.6...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.7...main?from_project_id=143
+[1.1.7]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.6...1.1.7?from_project_id=143
 [1.1.6]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.5...1.1.6?from_project_id=143
 [1.1.5]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.4...1.1.5?from_project_id=143
 [1.1.4]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.3...1.1.4?from_project_id=143

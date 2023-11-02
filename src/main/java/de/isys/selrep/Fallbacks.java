@@ -13,4 +13,10 @@ public @interface Fallbacks {
 
     String baseUrl();
 
+    String apiUrl1() default "";
+
+    String apiUrl2() default "";
+
+    String apiUrl3() default "";
+
 }

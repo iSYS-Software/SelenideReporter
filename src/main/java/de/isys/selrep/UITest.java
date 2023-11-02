@@ -40,6 +40,9 @@ public abstract class UITest {
     private static final String BROWSER = "UITEST.BROWSER";
     private static final String BROWSERLANG = "UITEST.BROWSER.LANG";
     private static final String BASEURL = "BASE.URL";
+    private static final String APIURL1 = "API.URL.1";
+    private static final String APIURL2 = "API.URL.2";
+    private static final String APIURL3 = "API.URL.3";
     private static final String CHROMEDRIVER = "webdriver.chrome.driver";
     private static final String APPEND = "APPEND.TO.EXISTING.REPORT";
 
@@ -49,19 +52,20 @@ public abstract class UITest {
 
     protected UITestReport report = null;
     protected final String BASE_URL;
+    protected final String API_URL_1, API_URL_2, API_URL_3;
 
     public UITest() {
-        String baseUrl = System.getProperty(BASEURL);
-        if (baseUrl == null) {
-            // not configured, so let's check annotation
-            baseUrl = getBaseUrlAnnotation();
-            if (baseUrl == null) {
-                // not annotated either, set default
-                baseUrl = "http://localhost:8080";
-            }
-        }
-        this.BASE_URL = baseUrl;
+        this.BASE_URL = getConfiguredProperty(BASEURL, "baseUrl", "http://localhost:8080");
         System.out.println("BASE_URL: " + BASE_URL);
+
+        this.API_URL_1 = getConfiguredProperty(APIURL1, "apiUrl1", null);
+        System.out.println("API_URL_1: " + API_URL_1);
+
+        this.API_URL_2 = getConfiguredProperty(APIURL2, "apiUrl2", null);
+        System.out.println("API_URL_2: " + API_URL_2);
+
+        this.API_URL_3 = getConfiguredProperty(APIURL3, "apiUrl3", null);
+        System.out.println("API_URL_3: " + API_URL_3);
 
         if (System.getProperty(CHROMEDRIVER) == null) {
             System.setProperty(CHROMEDRIVER, "/usr/bin/chromedriver");
@@ -184,13 +188,26 @@ public abstract class UITest {
         }
     }
 
-    private String getBaseUrlAnnotation() throws UITestException, SecurityException {
+    private String getConfiguredProperty(String systemProp, String annotationAttribute, String defaultValue) {
+        String property = System.getProperty(systemProp);
+        if (property == null) {
+            // not configured, so let's check annotation
+            property = getAnnotation(annotationAttribute);
+            if (property == null) {
+                // not annotated either, set default
+                property = defaultValue;
+            }
+        }
+        return property;
+    }
+
+    private String getAnnotation(String name) throws UITestException, SecurityException {
         Annotation fallbacks = this.getClass().getAnnotation(Fallbacks.class);
         if (fallbacks != null) {
             Class<? extends Annotation> annotationType = fallbacks.annotationType();
             for (Method method : annotationType.getDeclaredMethods()) {
                 try {
-                    if (method.getName().equals("baseUrl")) {
+                    if (method.getName().equals(name)) {
                         return "" + method.invoke(fallbacks, (Object[])null);
                     }
                 }

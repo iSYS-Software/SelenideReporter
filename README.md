@@ -77,6 +77,9 @@ The reports are configured via System Properties, which comes in handy when runn
 | System Property | Description | Fallback Annotation implemented | Default Value |
 | ------ | ------ | ------ | ------ |
 | `BASE.URL` | URL where the application to test is running. | `@Fallbacks(baseUrl="https://...")` | `http://localhost:8080` |
+| `API.URL.1` | URL of an external API that is needed in the test. | `@Fallbacks(apiUrl1="https://...")` | `null` |
+| `API.URL.2` | If a second API is needed in the test. | `@Fallbacks(apiUrl2="https://...")` | `null` |
+| `API.URL.3` | If a third API is needed in the test. | `@Fallbacks(apiUrl2="https://...")` | `null` |
 | `REPORT.UITEST.DIR` | Directory where the reports are written. | no | `build/reports/selenide` |
 | `UITEST.BROWSER` | Browser to use for UI tests. | no | `chrome` |
 | `UITEST.BROWSER.LANG` | Browser language to use for UI tests. | no | `en` |

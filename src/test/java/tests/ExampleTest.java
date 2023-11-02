@@ -6,6 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import de.isys.selrep.Fallbacks;
 import de.isys.selrep.UITest;
+import de.isys.selrep.UITestException;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.Test;
@@ -14,8 +15,9 @@ import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.source;
 
-@Fallbacks(baseUrl="https://www.isys.de/")
+@Fallbacks(baseUrl="https://www.isys.de/", apiUrl1="https://24pullrequests.com/projects.json")
 public class ExampleTest extends UITest {
 
     @Test
@@ -52,6 +54,17 @@ public class ExampleTest extends UITest {
             if (result.getThrowable() != null) {
                 report.info("This test has thrown: " + result.getThrowable().getClass().getName(), false);
             }
+        });
+    }
+
+    @Test
+    public void callExternalApi() {
+        this.run("External API", "check if external APIs can be configured", settings -> {
+            open(API_URL_1);
+            if(! source().contains("github_url")) {
+                throw new UITestException("API call not successful!");
+            }
+            report.info("External API called");
         });
     }
 
