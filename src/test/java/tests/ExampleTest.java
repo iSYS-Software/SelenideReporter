@@ -9,7 +9,7 @@ import de.isys.selrep.UITest;
 import de.isys.selrep.UITestException;
 
 import org.apache.commons.lang3.RandomUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.*;

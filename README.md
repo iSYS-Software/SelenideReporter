@@ -60,7 +60,7 @@ Run this test via `gradlew -x check clean test --tests tests.HelloWorldTest` and
 There's a lot going on in the HelloWorld test and this section explains it in more detail.
 1. Your test class should extend `UITest` or a base class you write that extends `UITest`.
 2. Annotate the class with your fallback base URL, unless http://localhost:8080 is to your liking.
-3. JUnit is used as a test runner, so use JUnit annotations to drive your test.
+3. JUnit5 is used as a test runner, so use JUnit Jupiter annotations to drive your test.
 4. Start a test (and a report) with `this.run("Test Name, "longer Test Description", settings -> { ... your test code ... });`
     - settings will provide you with some configuration options you can change on the fly, e. g. setting the timeout or the size of the browser window
 5. `BASE_URL` will hold your configured base URL. It will be the same URL for all methods within a test class.

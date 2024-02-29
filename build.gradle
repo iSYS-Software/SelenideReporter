@@ -1,10 +1,8 @@
-import groovy.swing.SwingBuilder;
-
 plugins {
     id 'java-library'
     id 'jacoco'
     id 'maven-publish'
-    id 'io.freefair.lombok' version '5.3.3.3'
+    id 'io.freefair.lombok' version '8.6'
 }
 
 description = 'Selenide-Reporter'
@@ -12,9 +10,9 @@ description = 'Selenide-Reporter'
 group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '1.1.6-SNAPSHOT'
+    nextVersion = '2.0.1-SNAPSHOT'
 }
-jar.archiveName="selenide-reporter-" + ext.nextVersion + ".jar"
+jar.archiveBaseName="selenide-reporter-" + ext.nextVersion
 
 repositories {
     mavenCentral()
@@ -34,16 +32,15 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.add("-Xlint:unchecked")
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
     api 'com.codeborne:selenide:6.17.2'
     api 'com.github.realulim:extentreports-java:5.0.18'
-    //implementation 'org.freemarker:freemarker:2.3.32'
-    //implementation 'com.google.code.gson:gson:2.10.1'
-    //implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
-    //implementation 'org.reactivestreams:reactive-streams:1.0.4'
-    //implementation name: 'extentreports-5.0.12-SNAPSHOT'
 
-    implementation 'junit:junit:4.13'
+    implementation 'org.junit.jupiter:junit-jupiter:5.10.2'
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.slf4j:slf4j-simple:1.7.32'

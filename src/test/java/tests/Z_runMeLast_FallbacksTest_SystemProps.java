@@ -2,17 +2,18 @@ package tests;
 
 import de.isys.selrep.Fallbacks;
 import de.isys.selrep.UITest;
-import org.junit.BeforeClass;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Fallbacks(baseUrl = "these", apiUrl1="values", apiUrl2="shouldBe", apiUrl3="overridden")
-public class FallbacksTest_SystemProps extends UITest {
+public class Z_runMeLast_FallbacksTest_SystemProps extends UITest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
+        // this can confuse other tests, so run them before this one
         System.setProperty("BASE.URL", "https://www.isys.de");
         System.setProperty("API.URL.1", "https://api1");
         System.setProperty("API.URL.2", "https://api2");

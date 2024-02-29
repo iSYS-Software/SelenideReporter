@@ -6,7 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import de.isys.selrep.Fallbacks;
 import de.isys.selrep.UITest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.CollectionCondition.*;
@@ -23,7 +23,10 @@ public class ShadowRootTest extends UITest {
             report.info("App Splash Screen");
             $("#close-splash").click();
             $("#close-splash").should(disappear);
-            $("#overlay").should(appear);
+            $("#overlay .close-button").should(appear).click();
+            report.info("Splash Screens closed");
+            
+            $("#start-project").click();
             report.info("App Start Screen");
             SelenideElement inner = getElementInShadowRootOf($("#overlay"), By.cssSelector("#resizerContainer"));
             inner.shouldBe(visible);

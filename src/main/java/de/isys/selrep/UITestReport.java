@@ -126,7 +126,7 @@ public class UITestReport {
     private void failWithMessage(String msg, Throwable t) {
         String errorMsg = t == null ? msg : msg + " caused by " + t.toString();
         writeToReport(Status.FAIL, errorMsg, t, true);
-        org.junit.Assert.fail();
+        org.junit.jupiter.api.Assertions.fail();
     }
 
     private void log(Status status, String msg) {

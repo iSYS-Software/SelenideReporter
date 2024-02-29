@@ -3,10 +3,11 @@ package tests;
 import de.isys.selrep.Fallbacks;
 import de.isys.selrep.UITest;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Fallbacks(baseUrl="https://www.wikipedia.org/")
 public class ThisTestIsSupposedToFail extends UITest {

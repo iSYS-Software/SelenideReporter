@@ -6,10 +6,10 @@ import com.aventstack.extentreports.model.Log;
 import de.isys.selrep.Fallbacks;
 import de.isys.selrep.UITest;
 
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,17 +21,18 @@ import java.util.Comparator;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Fallbacks(baseUrl = "https://w3.org")
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@TestMethodOrder(MethodOrderer.MethodName.class)
 public class ReportAppenderTest extends UITest {
 
     private static final String REPORTS_PATH = "build/reports/selenide/reportAppender";
     String textWithScreenshot = "Message with Screenshot";
     String textWithoutScreenshot = "Message without Screenshot";
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() throws IOException {
         System.setProperty("REPORT.UITEST.DIR", REPORTS_PATH);
         deleteDirectoryStream(Paths.get(REPORTS_PATH));

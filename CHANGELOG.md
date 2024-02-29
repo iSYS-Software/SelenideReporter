@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [2.0.0] - 2024-02-29
+
+### Changed
+- updated to Gradle 8 and JUnit 5 (breaking change: you must upgrade your app to JUnit5 as well)
+
+
 ## [1.1.7] - 2023-11-02
 
 ### Added
@@ -142,7 +148,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.7...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/2.0.0...main?from_project_id=143
+[2.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.7...2.0.0?from_project_id=143
 [1.1.7]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.6...1.1.7?from_project_id=143
 [1.1.6]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.5...1.1.6?from_project_id=143
 [1.1.5]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.4...1.1.5?from_project_id=143

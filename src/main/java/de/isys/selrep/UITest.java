@@ -17,9 +17,9 @@ import de.isys.selrep.callback.UITestFinalizeCallback;
 import de.isys.selrep.typeadapter.FileAdapter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.slf4j.impl.SimpleLogger;
@@ -73,7 +73,7 @@ public abstract class UITest {
         System.out.println("Location of chromedriver: " + System.getProperty(CHROMEDRIVER));
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() throws IOException {
         if (System.getProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY) == null) {
             System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "info");
@@ -127,11 +127,11 @@ public abstract class UITest {
         Configuration.browser = System.getProperty(BROWSER);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         try {
             List<Test> testList = reports.getReport().getTestList();
