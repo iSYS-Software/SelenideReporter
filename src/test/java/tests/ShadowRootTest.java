@@ -23,8 +23,7 @@ public class ShadowRootTest extends UITest {
             report.info("App Splash Screen");
             $("#close-splash").click();
             $("#close-splash").should(disappear);
-            $("#overlay .close-button").should(appear).click();
-            report.info("Splash Screens closed");
+            report.info("Splash Screen closed");
             
             $("#start-project").click();
             report.info("App Start Screen");

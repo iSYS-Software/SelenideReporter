@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class FileAdapter extends TypeAdapter<File> {
 
+    @Override
     public File read(JsonReader reader) throws IOException {
         if (reader.peek() == JsonToken.NULL) {
             reader.nextNull();
@@ -18,6 +19,7 @@ public class FileAdapter extends TypeAdapter<File> {
         return new File(reader.nextString());
     }
 
+    @Override
     public void write(JsonWriter writer, File value) throws IOException {
         if (value == null) {
             writer.nullValue();

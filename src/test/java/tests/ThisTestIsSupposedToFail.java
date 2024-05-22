@@ -22,7 +22,7 @@ public class ThisTestIsSupposedToFail extends UITest {
             report.info("This is called after the test has finished (whether successfully or not) and can be used to clean up", false);
             if (result.getThrowable() != null) {
                 assertEquals("java.lang.RuntimeException", result.getThrowable().getClass().getName());
-                report.info("This test has thrown: " + result.getThrowable().getClass().getName(), false);
+                report.info("This test has thrown: " + result.getThrowable().getClass().getName() + " with message " + result.getThrowable().getMessage(), false);
             }
         });
     }

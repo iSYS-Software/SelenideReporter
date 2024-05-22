@@ -25,25 +25,21 @@ public class ExampleTest extends UITest {
         this.run("Homepage", "check if homepage contains all expected elements", settings -> {
             open(BASE_URL);
 
-            SelenideElement acceptCookiesButton = $("#CookieBoxSaveButton").should(appear);
-            report.info("Cookie Notice appeared");
-            acceptCookiesButton.click();
-            $("#CookieBoxSaveButton").shouldNotBe(visible);
-            report.info("Cookies accepted");
+            acceptCookieBanner();
 
             report.startSection("Header");
-            $(byTagName("header")).should(appear);
-            checkLogo(BASE_URL);
-            ElementsCollection allVisibleLinks = $$("a[href]").filterBy(visible);
+            SelenideElement context = $(".vs-main-navigation").should(appear);
+            checkLogo(context, BASE_URL);
+            ElementsCollection allVisibleLinks = $(".vs-main").$$("a[href]").filterBy(visible);
             getRandomSameSiteLinkFrom(allVisibleLinks, BASE_URL).click();
-            checkLogo(BASE_URL);
+            checkLogo($(".vs-main-navigation"), BASE_URL);
             report.info("Random same-site Link clicked, Logo still present");
             open(BASE_URL);
             report.pass("Header Section ok", false); // this ends the section
 
             report.startSection("Content Area");
             settings.setTimeout(8000l); // for UI operations that need more time to complete
-            $$(".content h2").filterBy(visible).shouldHave(sizeGreaterThanOrEqual(1));
+            $$(".wp-block-columns").filterBy(visible).shouldHave(sizeGreaterThanOrEqual(1));
             settings.restoreDefaultTimeout();
             report.pass("Content Section ok");
             report.startSection("Footer");
@@ -54,6 +50,26 @@ public class ExampleTest extends UITest {
             if (result.getThrowable() != null) {
                 report.info("This test has thrown: " + result.getThrowable().getClass().getName(), false);
             }
+        });
+    }
+
+    private void acceptCookieBanner() {
+        SelenideElement acceptCookiesButton = $("#CookieBoxSaveButton").should(appear);
+        report.info("Cookie Notice appeared");
+        acceptCookiesButton.click();
+        $("#CookieBoxSaveButton").shouldNotBe(visible);
+        report.info("Cookies accepted");
+    }
+
+    @Test
+    public void firefoxTest() {
+        this.run("Homepage with Firefox", "check Homepage with different Browser", settings -> {
+            settings.setBrowser("firefox");
+            Selenide.closeWebDriver(); // start with a new webdriver
+            open(BASE_URL);
+            acceptCookieBanner();
+            checkLogo($(".vs-main-navigation"), BASE_URL);
+            report.pass("Homepage loads with Firefox");
         });
     }
 
@@ -68,9 +84,9 @@ public class ExampleTest extends UITest {
         });
     }
 
-    private void checkLogo(String baseUrl) {
-        SelenideElement logo = $$("img[alt='Logo']").filterBy(visible).shouldHave(size(1)).get(0);
-        logo.parent().shouldHave(attribute("href", baseUrl));
+    private void checkLogo(SelenideElement context, String baseUrl) {
+        SelenideElement logo = context.$$(".vs-logo a").filterBy(visible).shouldHave(size(1)).get(0);
+        logo.shouldHave(attribute("href", baseUrl));
         report.info("Logo found on page " + Selenide.title());
     }
 
@@ -79,6 +95,7 @@ public class ExampleTest extends UITest {
         while (randomLink == null || !randomLink.attr("href").startsWith(baseUrl)) {
             randomLink = allLinks.get(RandomUtils.nextInt(0, allLinks.size()));
         }
+        report.info("Random Link: " + randomLink.attr("href"), false);
         return randomLink;
     }
 
