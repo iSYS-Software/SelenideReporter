@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [3.0.1] - 2024-05-27
+
+### Changed
+- updated to Selenide 7.3.2
+
+
 ## [3.0.0] - 2024-05-24
 
 ### Changed
@@ -154,7 +160,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.0...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.1...main?from_project_id=143
+[3.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.0...3.0.1?from_project_id=143
 [3.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/2.0.0...3.0.0?from_project_id=143
 [2.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.7...2.0.0?from_project_id=143
 [1.1.7]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/1.1.6...1.1.7?from_project_id=143
