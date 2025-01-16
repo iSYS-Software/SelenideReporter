@@ -10,7 +10,7 @@ description = 'Selenide-Reporter'
 group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '2.0.1-SNAPSHOT'
+    nextVersion = '3.0.2-SNAPSHOT'
 }
 jar.archiveBaseName="selenide-reporter-" + ext.nextVersion
 
@@ -37,20 +37,15 @@ test {
 }
 
 dependencies {
-    api 'com.codeborne:selenide:7.3.2'
+    api 'com.codeborne:selenide:7.7.0'
     api 'com.github.realulim:extentreports-java:5.1.2'
 
-    implementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    implementation 'commons-io:commons-io:2.11.0'
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    implementation 'commons-io:commons-io:2.18.0'
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
     implementation 'org.slf4j:slf4j-simple:1.7.32'
-    implementation 'org.apache.httpcomponents.client5:httpclient5'
-    constraints {
-        implementation('org.apache.httpcomponents.client5:httpclient5:5.2.1') {
-            because 'previous versions have a bug impacting this application'
-        }
-    }
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
 }
 
 publishing {

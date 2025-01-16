@@ -1,6 +1,8 @@
 package tests;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.ScrollDirection;
+import com.codeborne.selenide.ScrollOptions;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
@@ -31,7 +33,7 @@ public class ExampleTest extends UITest {
             SelenideElement context = $(".vs-main-navigation").should(appear);
             checkLogo(context, BASE_URL);
             ElementsCollection allVisibleLinks = $(".vs-main").$$("a[href]").filterBy(visible);
-            getRandomSameSiteLinkFrom(allVisibleLinks, BASE_URL).click();
+            clickRandomSameSiteLinkFrom(allVisibleLinks, BASE_URL);
             checkLogo($(".vs-main-navigation"), BASE_URL);
             report.info("Random same-site Link clicked, Logo still present");
             open(BASE_URL);
@@ -90,13 +92,14 @@ public class ExampleTest extends UITest {
         report.info("Logo found on page " + Selenide.title());
     }
 
-    private SelenideElement getRandomSameSiteLinkFrom(ElementsCollection allLinks, String baseUrl) {
+    private void clickRandomSameSiteLinkFrom(ElementsCollection allLinks, String baseUrl) {
         SelenideElement randomLink = null;
         while (randomLink == null || !randomLink.attr("href").startsWith(baseUrl)) {
             randomLink = allLinks.get(RandomUtils.nextInt(0, allLinks.size()));
         }
-        report.info("Random Link: " + randomLink.attr("href"), false);
-        return randomLink;
+        randomLink.scrollIntoView(false);
+        report.info("Random Link: " + randomLink.attr("href"));
+        randomLink.click();
     }
 
 }
