@@ -87,11 +87,7 @@ public abstract class UITest {
         if (System.getProperty(BROWSER) == null) {
             System.setProperty(BROWSER, "chrome");
         }
-        if (System.getProperty(BROWSERLANG) == null) {
-            System.setProperty(BROWSERLANG, "en");
-        }
         System.setProperty("webdriver.http.factory", "jdk-http-client");
-        System.setProperty("chromeoptions.args", "--lang=" + System.getProperty(BROWSERLANG));
 
         String reportPath = System.getProperty(REPORTDIR) + "/index.html";
         String jsonPath = System.getProperty(REPORTDIR) + "/index.json";
@@ -129,6 +125,9 @@ public abstract class UITest {
 
     @BeforeEach
     public void setUp() {
+        String lang = getConfiguredProperty(BROWSERLANG, "browserLang", null);
+        System.setProperty("chromeoptions.args", "--accept-lang=" + lang + " --lang=" + lang);
+        System.out.println("Browser-Language: " + lang);
     }
 
     @AfterEach

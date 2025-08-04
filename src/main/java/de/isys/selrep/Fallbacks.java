@@ -13,6 +13,8 @@ public @interface Fallbacks {
 
     String baseUrl();
 
+    String browserLang() default "en";
+
     String apiUrl1() default "";
 
     String apiUrl2() default "";

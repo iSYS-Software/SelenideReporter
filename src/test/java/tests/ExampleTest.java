@@ -1,8 +1,6 @@
 package tests;
 
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.ScrollDirection;
-import com.codeborne.selenide.ScrollOptions;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
@@ -27,7 +25,7 @@ public class ExampleTest extends UITest {
         this.run("Homepage", "check if homepage contains all expected elements", settings -> {
             open(BASE_URL);
 
-            acceptCookieBanner();
+            acceptCookieBannerIfNecessary();
 
             report.startSection("Header");
             SelenideElement context = $(".vs-main-navigation").should(appear);
@@ -55,12 +53,14 @@ public class ExampleTest extends UITest {
         });
     }
 
-    private void acceptCookieBanner() {
-        SelenideElement acceptCookiesButton = $("#CookieBoxSaveButton").should(appear);
-        report.info("Cookie Notice appeared");
-        acceptCookiesButton.click();
-        $("#CookieBoxSaveButton").shouldNotBe(visible);
-        report.info("Cookies accepted");
+    private void acceptCookieBannerIfNecessary() {
+        SelenideElement acceptCookiesButton = $("#CookieBoxSaveButton");
+        if (acceptCookiesButton.exists() && acceptCookiesButton.isDisplayed()) {
+            report.info("Cookie Notice appeared");
+            acceptCookiesButton.click();
+            $("#CookieBoxSaveButton").shouldNotBe(visible);
+            report.info("Cookies accepted");
+        }
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ExampleTest extends UITest {
             settings.setBrowser("firefox");
             Selenide.closeWebDriver(); // start with a new webdriver
             open(BASE_URL);
-            acceptCookieBanner();
+            acceptCookieBannerIfNecessary();
             checkLogo($(".vs-main-navigation"), BASE_URL);
             report.pass("Homepage loads with Firefox");
         });

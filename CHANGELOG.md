@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [3.0.3] - 2025-08-04
+
+### Changed
+- introduced browserLang attribute for @Fallbacks annotation
+
+
 ## [3.0.2] - 2025-01-16
 
 ### Changed
@@ -166,7 +172,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.2...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.3...main?from_project_id=143
+[3.0.3]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.2...3.0.3?from_project_id=143
 [3.0.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.1...3.0.2?from_project_id=143
 [3.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.0...3.0.1?from_project_id=143
 [3.0.0]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/2.0.0...3.0.0?from_project_id=143
