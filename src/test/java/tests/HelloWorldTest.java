@@ -16,7 +16,7 @@ public class HelloWorldTest extends UITest {
         this.run("Hello World UI-Test", settings -> {
             open(BASE_URL);
             report.info("Opened " + BASE_URL, false);
-            $(".mw-logo-icon").should(appear);
+            $(".mw-logo-wordmark").should(appear);
             report.info("Wikipedia Logo found");
             // ... more tests
             report.pass("All good with " + BASE_URL, false);

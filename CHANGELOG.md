@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [4.0.0] - 2026-04-28
+
+### Changed
+- dependency updates, most notably Selenide 7.16.0 and Java 21 (breaking change)
+
+
 ## [3.0.3] - 2025-08-04
 
 ### Changed
@@ -172,7 +178,8 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 - Initial release
 
 
-[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.3...main?from_project_id=143
+[unreleased]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.4...main?from_project_id=143
+[3.0.4]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.3...3.0.4?from_project_id=143
 [3.0.3]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.2...3.0.3?from_project_id=143
 [3.0.2]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.1...3.0.2?from_project_id=143
 [3.0.1]: https://gitlab.isys.de/ulrichmayring/selenide-reporter/-/compare/3.0.0...3.0.1?from_project_id=143

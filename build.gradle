@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id 'maven-publish'
-    id 'io.freefair.lombok' version '8.6'
+    id 'io.freefair.lombok' version '8.14.2'
 }
 
 description = 'Selenide-Reporter'
@@ -10,7 +10,7 @@ description = 'Selenide-Reporter'
 group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '3.0.2-SNAPSHOT'
+    nextVersion = '4.0.0-SNAPSHOT'
 }
 jar.archiveBaseName="selenide-reporter-" + ext.nextVersion
 
@@ -24,7 +24,7 @@ repositories {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -37,15 +37,16 @@ test {
 }
 
 dependencies {
-    api 'com.codeborne:selenide:7.7.0'
+    api 'com.codeborne:selenide:7.16.0'
     api 'com.github.realulim:extentreports-java:5.1.2'
 
     implementation 'org.junit.jupiter:junit-jupiter:5.11.4'
-    implementation 'commons-io:commons-io:2.18.0'
-    implementation 'org.apache.commons:commons-lang3:3.17.0'
-    implementation 'org.slf4j:slf4j-simple:1.7.32'
-    implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.1'
-    implementation 'com.google.code.gson:gson:2.11.0'
+
+    implementation 'commons-io:commons-io:2.22.0'
+    implementation 'org.apache.commons:commons-lang3:3.20.0'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.6.1'
+    implementation 'com.google.code.gson:gson:2.14.0'
 }
 
 publishing {
