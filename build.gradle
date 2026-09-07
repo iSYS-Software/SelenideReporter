@@ -10,7 +10,7 @@ description = 'Selenide-Reporter'
 group = 'com.github.iSYS-Software'
 
 ext {
-    nextVersion = '4.0.0-SNAPSHOT'
+    nextVersion = '4.0.2-SNAPSHOT'
 }
 jar.archiveBaseName="selenide-reporter-" + ext.nextVersion
 
@@ -37,7 +37,7 @@ test {
 }
 
 dependencies {
-    api 'com.codeborne:selenide:7.16.0'
+    api 'com.codeborne:selenide:7.18.0'
     api 'com.github.realulim:extentreports-java:5.1.2'
 
     implementation 'org.junit.jupiter:junit-jupiter:5.11.4'

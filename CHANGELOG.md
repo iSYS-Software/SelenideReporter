@@ -12,6 +12,12 @@ The format of this file is based on [Keep a Changelog](https://keepachangelog.co
 ## [Unreleased]
 
 
+## [4.0.1] - 2026-09-07
+
+### Changed
+- dependency updates: Selenide 7.18.0
+
+
 ## [4.0.0] - 2026-04-28
 
 ### Changed

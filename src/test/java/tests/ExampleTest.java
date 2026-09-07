@@ -24,8 +24,8 @@ public class ExampleTest extends UITest {
     public void homepage() {
         this.run("Homepage", "check if homepage contains all expected elements", settings -> {
             open(BASE_URL);
-
-            acceptCookieBannerIfNecessary();
+            
+            acceptCookieBanner();
 
             report.startSection("Header");
             SelenideElement context = $(".vs-main-navigation").should(appear);
@@ -53,23 +53,13 @@ public class ExampleTest extends UITest {
         });
     }
 
-    private void acceptCookieBannerIfNecessary() {
-        SelenideElement acceptCookiesButton = $("#CookieBoxSaveButton");
-        if (acceptCookiesButton.exists() && acceptCookiesButton.isDisplayed()) {
-            report.info("Cookie Notice appeared");
-            acceptCookiesButton.click();
-            $("#CookieBoxSaveButton").shouldNotBe(visible);
-            report.info("Cookies accepted");
-        }
-    }
-
     @Test
     public void firefoxTest() {
         this.run("Homepage with Firefox", "check Homepage with different Browser", settings -> {
             settings.setBrowser("firefox");
             Selenide.closeWebDriver(); // start with a new webdriver
             open(BASE_URL);
-            acceptCookieBannerIfNecessary();
+            acceptCookieBanner();
             checkLogo($(".vs-main-navigation"), BASE_URL);
             report.pass("Homepage loads with Firefox");
         });
@@ -100,6 +90,12 @@ public class ExampleTest extends UITest {
         randomLink.scrollIntoView(false);
         report.info("Random Link: " + randomLink.attr("href"));
         randomLink.click();
+    }
+
+    private void acceptCookieBanner() {
+        $(".brlbs-btn-accept-all").should(appear);
+        report.info("Cookie Banner appeared");
+        $(".brlbs-btn-accept-all").click();
     }
 
 }
