@@ -45,6 +45,8 @@ public abstract class UITest {
     private static final String APIURL3 = "API.URL.3";
     private static final String CHROMEDRIVER = "webdriver.chrome.driver";
     private static final String APPEND = "APPEND.TO.EXISTING.REPORT";
+    private static final String COMPRESS_SCREENSHOTS = "UITEST.SCREENSHOTS.COMPRESS";
+    private static final String DELETE_SCREENSHOTS_ON_SUCCESS = "UITEST.SCREENSHOTS.DELETE-ON-SUCCESS";
 
     private static ExtentReports reports;
 
@@ -165,6 +167,7 @@ public abstract class UITest {
         ExtentTest extentTest = reports.createTest(testName, testDescription);
         extentTest.getModel().setStartTime(new Date());
         this.report = new UITestReport(System.getProperty(REPORTDIR), extentTest);
+        report.setCompressScreenshots(getBooleanProperty(COMPRESS_SCREENSHOTS, true));
         UITestSettings settings = new UITestSettings(BROWSER);
         UITestResult result = new UITestResult(settings);
         try {
@@ -185,6 +188,15 @@ public abstract class UITest {
                 }
             }
         }
+        // only reached if the test and its finalizer have succeeded, as failOnException throws
+        if (getBooleanProperty(DELETE_SCREENSHOTS_ON_SUCCESS, false)) {
+            report.discardScreenshots();
+        }
+    }
+
+    private static boolean getBooleanProperty(String systemProp, boolean defaultValue) {
+        String property = System.getProperty(systemProp);
+        return property == null ? defaultValue : property.equalsIgnoreCase("true");
     }
 
     private String getConfiguredProperty(String systemProp, String annotationAttribute, String defaultValue) {

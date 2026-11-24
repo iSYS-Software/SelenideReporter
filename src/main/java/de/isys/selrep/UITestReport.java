@@ -3,11 +3,17 @@ package de.isys.selrep;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.Test;
 import com.codeborne.selenide.Configuration;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.net.URI;
+import java.nio.file.Files;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +25,7 @@ import static com.codeborne.selenide.Selenide.screenshot;
 public class UITestReport {
 
     private int startingScreenshotCounter = 100;
+    private boolean compressScreenshots = true;
     private final String testShortCode;
 
     private final String reportDirPath;
@@ -95,8 +102,11 @@ public class UITestReport {
     private void writeToReport(Status status, String msg, Throwable t, boolean captureScreen) {
         if (captureScreen) {
             try {
-                String pngFileName = screenshot(generateUniqueBaseName());
-                Media media = MediaEntityBuilder.createScreenCaptureFromPath(pngFileName).build();
+                String screenshotFileName = screenshot(generateUniqueBaseName());
+                if (compressScreenshots) {
+                    screenshotFileName = compress(screenshotFileName);
+                }
+                Media media = MediaEntityBuilder.createScreenCaptureFromPath(screenshotFileName).build();
                 String reportsFolder = StringUtils.appendIfMissing(Configuration.reportsFolder, "/");
                 String resolvedPath = StringUtils.substringAfter(media.getPath(), reportsFolder);
                 // make path relative to support self-contained report
@@ -112,6 +122,45 @@ public class UITestReport {
             log(status, msg);
         }
         System.out.println(msg);
+    }
+
+    private String compress(String screenshotFileName) {
+        try {
+            File compressed = ScreenshotCompressor.compress(toFile(screenshotFileName));
+            return StringUtils.substringBeforeLast(screenshotFileName, "/") + "/" + compressed.getName();
+        }
+        catch (Throwable t) {
+            // the uncompressed screenshot is still usable
+            System.err.println("Could not compress Screenshot " + screenshotFileName + ": " + t.toString());
+            return screenshotFileName;
+        }
+    }
+
+    /**
+     * Removes all screenshots of this test from the report and deletes their files.
+     */
+    public void discardScreenshots() {
+        discardScreenshots(extentTest.getModel());
+    }
+
+    private void discardScreenshots(Test test) {
+        for (Log log : test.getLogs()) {
+            if (log.hasMedia()) {
+                try {
+                    Files.deleteIfExists(toFile(log.getMedia().getPath()).toPath());
+                }
+                catch (Throwable t) {
+                    System.err.println("Could not delete Screenshot " + log.getMedia().getPath() + ": " + t.toString());
+                }
+                log.setMedia(null);
+            }
+        }
+        test.getChildren().forEach(this::discardScreenshots);
+    }
+
+    private static File toFile(String path) {
+        // Selenide returns screenshot locations as file URLs
+        return path.startsWith("file:") ? new File(URI.create(path)) : new File(path);
     }
 
     private String generateUniqueBaseName() {

@@ -83,6 +83,8 @@ The reports are configured via System Properties, which comes in handy when runn
 | `REPORT.UITEST.DIR` | Directory where the reports are written. | no | `build/reports/selenide` |
 | `UITEST.BROWSER` | Browser to use for UI tests. | no | `chrome` |
 | `UITEST.BROWSER.LANG` | Browser language to use for UI tests. | no | `en` |
+| `UITEST.SCREENSHOTS.COMPRESS` | Store screenshots as PNG with 256 colors, or as JPEG if they mostly show photos. Set to `false` for lossless PNGs. | no | `true` |
+| `UITEST.SCREENSHOTS.DELETE-ON-SUCCESS` | Set to `true` to remove the screenshots of successful tests from the report. Failed tests keep all their screenshots. | no | `false` |
 | `webdriver.chrome.driver` | Location of chromedriver when using Chrome. | no | `/usr/bin/chromedriver` |
 | `org.slf4j.simpleLogger.defaultLogLevel` | Log level for Selenide. | no | `info` |
 
